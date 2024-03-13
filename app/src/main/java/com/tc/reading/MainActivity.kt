@@ -1,23 +1,17 @@
 package com.tc.reading
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.RelativeLayout
 import android.widget.Toast
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation
 import com.tc.reading.databinding.ActivityMainBinding
-import com.tc.reading.ui.dashboard.DashboardFragment
-import com.tc.reading.ui.home.HomeFragment
+import com.tc.reading.ui.video.VideoFragment
+import com.tc.reading.ui.book.BookFragment
 import com.tc.reading.ui.me.AboutMeFragment
-import com.tc.reading.ui.notifications.NotificationsFragment
+import com.tc.reading.ui.day.DayFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -30,9 +24,9 @@ class MainActivity : AppCompatActivity() {
         private const val ID_ME = 4
     }
 
-    private lateinit var bookFragment: HomeFragment
-    private lateinit var videoFragment: DashboardFragment
-    private lateinit var dayFragment: NotificationsFragment
+    private lateinit var bookFragment: BookFragment
+    private lateinit var videoFragment: VideoFragment
+    private lateinit var dayFragment: DayFragment
     private lateinit var aboutMeFragment: AboutMeFragment
     private var currentFragment: Fragment? = null
 
@@ -44,9 +38,9 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        bookFragment = HomeFragment();
-        videoFragment = DashboardFragment();
-        dayFragment = NotificationsFragment();
+        bookFragment = BookFragment();
+        videoFragment = VideoFragment();
+        dayFragment = DayFragment();
         aboutMeFragment = AboutMeFragment();
 
         supportActionBar?.title = "Books";
@@ -64,16 +58,20 @@ class MainActivity : AppCompatActivity() {
             setOnShowListener {
                 when (it.id) {
                     ID_BOOK -> {
-                        switchFragment(bookFragment)
+                        switchFragment(bookFragment);
+                        setActionBarTitle("Books");
                     }
                     ID_MOVIE -> {
-                        switchFragment(videoFragment)
+                        switchFragment(videoFragment);
+                        setActionBarTitle("Videos");
                     }
                     ID_DAY -> {
                         switchFragment(dayFragment)
+                        setActionBarTitle("Everyday");
                     }
                     ID_ME -> {
                         switchFragment(aboutMeFragment)
+                        setActionBarTitle("About Me");
                     }
                 }
             }
@@ -118,6 +116,10 @@ class MainActivity : AppCompatActivity() {
             }
             currentFragment = to;
         }
+    }
+
+    private fun setActionBarTitle(title: String) {
+        supportActionBar?.title = title
     }
 
 }

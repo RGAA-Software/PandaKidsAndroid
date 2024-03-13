@@ -1,4 +1,4 @@
-package com.tc.reading.ui.dashboard
+package com.tc.reading.ui.video
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
