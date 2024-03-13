@@ -1,8 +1,10 @@
 package com.tc.reading.util
 
+import android.app.Activity
 import android.content.Context
 import android.content.res.Configuration
 import android.util.DisplayMetrics
+import android.view.View
 import android.view.WindowManager
 
 
@@ -20,6 +22,11 @@ class ScreenUtil {
             val y = Math.pow((dm.heightPixels / dm.ydpi).toDouble(), 2.0)
             val screenInches = Math.sqrt(x + y) // 屏幕尺寸
             return isPad || screenInches >= 7.0
+        }
+
+        fun makeActivityFullScreen(activity: Activity) {
+            activity.window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
+            activity.window.statusBarColor = activity.resources.getColor(com.rajat.pdfviewer.R.color.colorPrimary);
         }
 
     }

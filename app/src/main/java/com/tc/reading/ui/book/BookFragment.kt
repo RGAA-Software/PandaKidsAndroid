@@ -71,6 +71,7 @@ class BookFragment : Fragment() {
         binding.bookList.apply {
             layoutManager = GridLayoutManager(activity, 2);
             adapter = BookAdapter(context, books);
+            addItemDecoration(ItemDecoration(12));
             addOnScrollListener(object: RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)

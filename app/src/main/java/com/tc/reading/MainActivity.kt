@@ -12,6 +12,7 @@ import com.tc.reading.ui.video.VideoFragment
 import com.tc.reading.ui.book.BookFragment
 import com.tc.reading.ui.me.AboutMeFragment
 import com.tc.reading.ui.day.DayFragment
+import com.tc.reading.util.ScreenUtil
 
 class MainActivity : AppCompatActivity() {
 
@@ -32,8 +33,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
-        window.statusBarColor = this.resources.getColor(com.rajat.pdfviewer.R.color.colorPrimary);
+        ScreenUtil.makeActivityFullScreen(this);
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
