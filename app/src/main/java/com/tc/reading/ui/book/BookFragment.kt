@@ -14,11 +14,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.simform.refresh.SSPullToRefreshLayout
-import com.tc.reading.databinding.FragmentHomeBinding
+import com.tc.reading.databinding.FragmentBookBinding
 
 class BookFragment : Fragment() {
 
-    private var _binding: FragmentHomeBinding? = null
+    private var _binding: FragmentBookBinding? = null
     private var _handler: Handler? = null;
     private val binding get() = _binding!!
     private val handler get() = _handler!!;
@@ -28,7 +28,7 @@ class BookFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
 
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        _binding = FragmentBookBinding.inflate(inflater, container, false)
         _handler = Handler(Looper.getMainLooper());
         val root: View = binding.root
 
@@ -40,18 +40,6 @@ class BookFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        view.findViewById<Button>(R.id.text_home).setOnClickListener {
-//            Toast.makeText(activity, "Assets", Toast.LENGTH_SHORT).show();
-//            val intent = PdfViewerActivity.launchPdfFromPath(
-//                context = activity,
-//                path = "01.Taking Care of Chase.pdf",
-//                pdfTitle = "01.Taking Care of Chase",
-//                saveTo = saveTo.ASK_EVERYTIME,
-//                fromAssets = true
-//            )
-//            activity?.startActivity(intent)
-//        }
-
         for (i in 1..120) {
             books.add(BookInfo());
         }
