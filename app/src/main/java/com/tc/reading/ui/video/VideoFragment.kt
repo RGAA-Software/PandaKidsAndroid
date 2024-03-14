@@ -6,9 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.tc.reading.AppContext
 import com.tc.reading.databinding.FragmentVideoBinding
+import com.tc.reading.ui.BaseFragment
 
-class VideoFragment : Fragment() {
+class VideoFragment(appContext: AppContext) : BaseFragment(appContext) {
 
     private var _binding: FragmentVideoBinding? = null
     private val binding get() = _binding!!

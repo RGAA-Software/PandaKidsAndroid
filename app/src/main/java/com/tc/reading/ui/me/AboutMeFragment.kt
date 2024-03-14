@@ -5,9 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.tc.reading.AppContext
 import com.tc.reading.databinding.FragmentAboutmeBinding
+import com.tc.reading.ui.BaseFragment
 
-class AboutMeFragment : Fragment() {
+class AboutMeFragment(appContext: AppContext) : BaseFragment(appContext) {
 
     private lateinit var binding: FragmentAboutmeBinding;
 

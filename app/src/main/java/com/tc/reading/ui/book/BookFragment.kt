@@ -14,9 +14,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.simform.refresh.SSPullToRefreshLayout
+import com.tc.reading.AppContext
 import com.tc.reading.databinding.FragmentBookBinding
+import com.tc.reading.ui.BaseFragment
 
-class BookFragment : Fragment() {
+class BookFragment(appContext: AppContext) : BaseFragment(appContext) {
 
     private var _binding: FragmentBookBinding? = null
     private var _handler: Handler? = null;

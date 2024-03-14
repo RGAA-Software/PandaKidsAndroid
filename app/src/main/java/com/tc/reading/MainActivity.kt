@@ -31,6 +31,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var aboutMeFragment: AboutMeFragment
     private var currentFragment: Fragment? = null
 
+    private lateinit var appContext: AppContext;
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ScreenUtil.makeActivityFullScreen(this);
@@ -38,10 +40,12 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        bookFragment = BookFragment();
-        videoFragment = VideoFragment();
-        dayFragment = DayFragment();
-        aboutMeFragment = AboutMeFragment();
+        appContext = AppContext(this);
+
+        bookFragment = BookFragment(appContext);
+        videoFragment = VideoFragment(appContext);
+        dayFragment = DayFragment(appContext);
+        aboutMeFragment = AboutMeFragment(appContext);
 
         supportActionBar?.title = "Books";
         val fragmentHost = binding.root.findViewById<RelativeLayout>(R.id.fragment_host);

@@ -63,6 +63,12 @@ dependencies {
     // blur
     implementation("com.github.mmin18:realtimeblurview:1.2.1")
 
+    // okhttp
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+
+    // glide
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
