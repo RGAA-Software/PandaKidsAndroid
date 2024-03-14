@@ -45,6 +45,7 @@
             android:textColor="@color/colorPrimary"
             android:ellipsize="end"
             android:background="#ffff"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
