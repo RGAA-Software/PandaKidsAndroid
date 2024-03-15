@@ -10,6 +10,7 @@ import com.tc.reading.AppContext
 import com.tc.reading.R
 import com.tc.reading.databinding.FragmentDayBinding
 import com.tc.reading.ui.BaseFragment
+import com.tc.reading.util.DateUtil
 
 class DayFragment(appContext: AppContext) : BaseFragment(appContext) {
 
@@ -31,6 +32,29 @@ class DayFragment(appContext: AppContext) : BaseFragment(appContext) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        // date
+        val date = DateUtil.getSeparatedDate();
+        binding.dateYear.text = date.year;
+        binding.dateMonth.text = date.month;
+        binding.dateDay.text = date.day;
+        binding.refreshLayout.setColorSchemeResources(com.rajat.pdfviewer.R.color.colorPrimary,
+            com.rajat.pdfviewer.R.color.colorPrimaryDark);
+        binding.refreshLayout.setOnRefreshListener {
+            refresh();
+            appContext.postDelayUITask({
+                binding.refreshLayout.isRefreshing = false;
+            }, 2000);
+        }
+
+        refresh();
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private fun refresh() {
         daySentence.requestTodaySentence{ sentence ->
             appContext.postUITask{
                 if (sentence.type == "shanbay") {
@@ -42,13 +66,17 @@ class DayFragment(appContext: AppContext) : BaseFragment(appContext) {
                         .centerCrop()
                         //.placeholder(R.drawable.test_cover)
                         .into(binding.shanbayCover);
+                } else if (sentence.type == "youdao") {
+                    binding.youdaoAuthor.text = sentence.from;
+                    binding.youdaoContent.text = sentence.content;
+                    binding.youdaoTranslation.text = sentence.translation;
+                    Glide.with(this)
+                        .load(sentence.imageUrl)
+                        .centerCrop()
+                        //.placeholder(R.drawable.test_cover)
+                        .into(binding.youdaoCover);
                 }
             };
         };
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

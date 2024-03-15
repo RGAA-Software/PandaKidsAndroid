@@ -27,4 +27,8 @@ class AppContext(private var context: Context) {
         mainHandler.post(task);
     }
 
+    public fun postDelayUITask(task: Runnable, time: Long) {
+        mainHandler.postDelayed(task, time);
+    }
+
 }
