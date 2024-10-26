@@ -40,12 +40,12 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        appContext = AppContext(this);
+        appContext = (application as App).getAppContext();
 
-        bookFragment = BookFragment(appContext);
-        videoFragment = VideoFragment(appContext);
-        dayFragment = DayFragment(appContext);
-        aboutMeFragment = AboutMeFragment(appContext);
+        bookFragment = BookFragment();
+        videoFragment = VideoFragment();
+        dayFragment = DayFragment();
+        aboutMeFragment = AboutMeFragment();
 
         supportActionBar?.title = "Books";
         val fragmentHost = binding.root.findViewById<RelativeLayout>(R.id.fragment_host);

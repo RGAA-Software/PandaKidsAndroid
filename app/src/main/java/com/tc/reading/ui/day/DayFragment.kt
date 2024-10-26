@@ -6,20 +6,27 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.tc.reading.App
 import com.tc.reading.AppContext
 import com.tc.reading.R
 import com.tc.reading.databinding.FragmentDayBinding
 import com.tc.reading.ui.BaseFragment
 
-class DayFragment(appContext: AppContext) : BaseFragment(appContext) {
+class DayFragment() : BaseFragment() {
 
     private var _binding: FragmentDayBinding? = null
     private val binding get() = _binding!!
-    private val daySentence = DaySentenceManager(appContext);
+    private lateinit var daySentence: DaySentenceManager
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        daySentence = DaySentenceManager(appContext)
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        val notificationsViewModel = ViewModelProvider(this).get(NotificationsViewModel::class.java)
 
+
+        val notificationsViewModel = ViewModelProvider(this).get(NotificationsViewModel::class.java)
         _binding = FragmentDayBinding.inflate(inflater, container, false)
         val root: View = binding.root
 

@@ -17,5 +17,5 @@ dependencyResolutionManagement {
 
 include(":app")
 include (":pdfViewer")
-rootProject.name = "tc_reading"
+rootProject.name = "PandaKids"
  

@@ -10,7 +10,7 @@ import com.tc.reading.AppContext
 import com.tc.reading.databinding.FragmentVideoBinding
 import com.tc.reading.ui.BaseFragment
 
-class VideoFragment(appContext: AppContext) : BaseFragment(appContext) {
+class VideoFragment() : BaseFragment() {
 
     private var _binding: FragmentVideoBinding? = null
     private val binding get() = _binding!!

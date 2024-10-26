@@ -9,7 +9,7 @@ import com.tc.reading.AppContext
 import com.tc.reading.databinding.FragmentAboutmeBinding
 import com.tc.reading.ui.BaseFragment
 
-class AboutMeFragment(appContext: AppContext) : BaseFragment(appContext) {
+class AboutMeFragment() : BaseFragment() {
 
     private lateinit var binding: FragmentAboutmeBinding;
 
