@@ -1,18 +1,22 @@
 package com.tc.reading
 
 import android.os.Bundle
-import android.view.View
 import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation
+//import com.shuyu.gsyvideoplayer.player.IjkPlayerManager
+//import com.shuyu.gsyvideoplayer.player.PlayerFactory
+//import com.shuyu.gsyvideoplayer.player.SystemPlayerManager
 import com.tc.reading.databinding.ActivityMainBinding
-import com.tc.reading.ui.video.VideoFragment
 import com.tc.reading.ui.book.BookFragment
-import com.tc.reading.ui.me.AboutMeFragment
 import com.tc.reading.ui.day.DayFragment
+import com.tc.reading.ui.me.AboutMeFragment
+import com.tc.reading.ui.video.VideoFragment
 import com.tc.reading.util.ScreenUtil
+//import tv.danmaku.ijk.media.exo2.Exo2PlayerManager
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -36,6 +40,16 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ScreenUtil.makeActivityFullScreen(this);
+
+
+        //EXOPlayer内核，支持格式更多
+        //PlayerFactory.setPlayManager(Exo2PlayerManager::class.java)
+
+        //系统内核模式
+        //PlayerFactory.setPlayManager(SystemPlayerManager::class.java)
+
+        //ijk内核，默认模式
+//        PlayerFactory.setPlayManager(IjkPlayerManager::class.java)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)

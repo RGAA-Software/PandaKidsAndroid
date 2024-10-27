@@ -1,58 +1,61 @@
 package com.tc.reading.ui.video
 
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.annotation.OptIn
 import androidx.lifecycle.ViewModelProvider
-import com.tc.reading.AppContext
+import androidx.media3.common.MediaItem
+import androidx.media3.common.util.UnstableApi
+import androidx.media3.exoplayer.DefaultRenderersFactory
+import androidx.media3.exoplayer.ExoPlayer
+import androidx.media3.ui.PlayerView
+import com.tc.reading.R
 import com.tc.reading.databinding.FragmentVideoBinding
 import com.tc.reading.ui.BaseFragment
 
 class VideoFragment() : BaseFragment() {
 
-    private var _binding: FragmentVideoBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var exoPlayer: ExoPlayer
+
+    @OptIn(UnstableApi::class)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        exoPlayer = activity?.let { ExoPlayer.Builder(it).build() }!!
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        val dashboardViewModel = ViewModelProvider(this).get(DashboardViewModel::class.java)
-
-        _binding = FragmentVideoBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-
-        dashboardViewModel.text.observe(viewLifecycleOwner) {
-
-        }
-        return root
+        return inflater.inflate(R.layout.fragment_video, null)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding.testVideoPlayer.setIsTouchWigetFull(true);
-        binding.testVideoPlayer.setUp("https://media.w3.org/2010/05/sintel/trailer.mp4", true, "Test...");
-        binding.testButton.setOnClickListener {
-            binding.testButton.setText("GGG")
-        }
+        val playerView: PlayerView = view.findViewById(R.id.video_view);
+        playerView.player = exoPlayer
+        exoPlayer.addMediaItem(MediaItem.fromUri("http://192.168.31.5:9988/pandakids/stream/videos/week6.mp4"))
+//        exoPlayer.addMediaItem(MediaItem.fromUri("http://192.168.31.5:9988/resources/videos/week6.mp4"))
+        exoPlayer.prepare()
+        exoPlayer.playWhenReady = true
     }
 
     override fun onResume() {
         super.onResume()
-        if (!binding.testVideoPlayer.isInPlayingState) {
-            binding.testVideoPlayer.onVideoResume()
-        }
     }
 
     override fun onPause() {
         super.onPause()
-        if (binding.testVideoPlayer.isInPlayingState) {
-            binding.testVideoPlayer.onVideoPause()
-        }
+        exoPlayer.pause()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        exoPlayer.release()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
+
     }
 }
