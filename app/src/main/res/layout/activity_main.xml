@@ -10,23 +10,54 @@
         android:id="@+id/fragment_host"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="25dp"
-        android:layout_above="@id/bottom_bar"
-        />
+        android:layout_below="@id/top_bar_parent">
 
-    <com.etebarian.meowbottomnavigation.MeowBottomNavigation
-        android:id="@+id/bottom_bar"
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/top_bar_parent"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        app:mbn_circleColor="#ffffff"
-        app:mbn_backgroundBottomColor="#ffffff"
-        app:mbn_countBackgroundColor="#ff6f00"
-        app:mbn_countTextColor="#ffffff"
-        app:mbn_defaultIconColor="#90a4ae"
-        app:mbn_rippleColor="#cccccc"
-        app:mbn_selectedIconColor="@color/colorPrimary"
-        app:mbn_shadowColor="#1f212121"
-        app:mbn_countTypeface="fonts/SourceSansPro-Regular.ttf"
-        android:layout_alignParentBottom="true"/>
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="25dp">
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/top_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:background="@color/white"
+            app:tabIndicatorColor="@color/colorPrimary"
+            app:tabMaxWidth="200dp"
+            app:tabMinWidth="150dp"
+            app:tabMode="fixed"
+            app:tabSelectedTextColor="@color/colorPrimary"
+            app:tabTextAppearance="@style/TopBar"
+            app:tabIndicator="@drawable/top_bar_indicator"
+            app:tabTextColor="#333333" >
+            <com.google.android.material.tabs.TabItem
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="Cartoon" />
 
+            <com.google.android.material.tabs.TabItem
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="Documentary" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="Book" />
+
+        </com.google.android.material.tabs.TabLayout>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="JUST Test"/>
+    </LinearLayout>
 </RelativeLayout>

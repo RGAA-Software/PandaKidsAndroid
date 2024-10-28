@@ -10,6 +10,7 @@ import com.etebarian.meowbottomnavigation.MeowBottomNavigation
 //import com.shuyu.gsyvideoplayer.player.PlayerFactory
 //import com.shuyu.gsyvideoplayer.player.SystemPlayerManager
 import com.tc.reading.databinding.ActivityMainBinding
+import com.tc.reading.ui.SimpleFragmentPagerAdapter
 import com.tc.reading.ui.book.BookFragment
 import com.tc.reading.ui.day.DayFragment
 import com.tc.reading.ui.me.AboutMeFragment
@@ -41,16 +42,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         ScreenUtil.makeActivityFullScreen(this);
 
-
-        //EXOPlayer内核，支持格式更多
-        //PlayerFactory.setPlayManager(Exo2PlayerManager::class.java)
-
-        //系统内核模式
-        //PlayerFactory.setPlayManager(SystemPlayerManager::class.java)
-
-        //ijk内核，默认模式
-//        PlayerFactory.setPlayManager(IjkPlayerManager::class.java)
-
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -64,47 +55,50 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.title = "Books";
         val fragmentHost = binding.root.findViewById<RelativeLayout>(R.id.fragment_host);
 
+        binding.viewPager.adapter = SimpleFragmentPagerAdapter(supportFragmentManager);
+        binding.topBar.setupWithViewPager(binding.viewPager)
 
-        binding.bottomBar.apply {
-            add(MeowBottomNavigation.Model(ID_BOOK, R.drawable.ic_book))
-            add(MeowBottomNavigation.Model(ID_MOVIE, R.drawable.ic_movie))
-            add(MeowBottomNavigation.Model(ID_DAY, R.drawable.ic_sun))
-            add(MeowBottomNavigation.Model(ID_ME, R.drawable.ic_account))
 
-            //setCount(ID_NOTIFICATION, "15")
-
-            setOnShowListener {
-                when (it.id) {
-                    ID_BOOK -> {
-                        switchFragment(bookFragment);
-                        setActionBarTitle("Books");
-                    }
-                    ID_MOVIE -> {
-                        switchFragment(videoFragment);
-                        setActionBarTitle("Videos");
-                    }
-                    ID_DAY -> {
-                        switchFragment(dayFragment)
-                        setActionBarTitle("Everyday");
-                    }
-                    ID_ME -> {
-                        switchFragment(aboutMeFragment)
-                        setActionBarTitle("About Me");
-                    }
-                }
-            }
-
-            setOnClickMenuListener {
-
-            }
-
-            setOnReselectListener {
-                Toast.makeText(context, "item ${it.id} is reselected.", Toast.LENGTH_LONG).show()
-            }
-
-            show(ID_BOOK)
-
-        }
+//        binding.bottomBar.apply {
+//            add(MeowBottomNavigation.Model(ID_BOOK, R.drawable.ic_book))
+//            add(MeowBottomNavigation.Model(ID_MOVIE, R.drawable.ic_movie))
+//            add(MeowBottomNavigation.Model(ID_DAY, R.drawable.ic_sun))
+//            add(MeowBottomNavigation.Model(ID_ME, R.drawable.ic_account))
+//
+//            //setCount(ID_NOTIFICATION, "15")
+//
+//            setOnShowListener {
+//                when (it.id) {
+//                    ID_BOOK -> {
+//                        switchFragment(bookFragment);
+//                        setActionBarTitle("Books");
+//                    }
+//                    ID_MOVIE -> {
+//                        switchFragment(videoFragment);
+//                        setActionBarTitle("Videos");
+//                    }
+//                    ID_DAY -> {
+//                        switchFragment(dayFragment)
+//                        setActionBarTitle("Everyday");
+//                    }
+//                    ID_ME -> {
+//                        switchFragment(aboutMeFragment)
+//                        setActionBarTitle("About Me");
+//                    }
+//                }
+//            }
+//
+//            setOnClickMenuListener {
+//
+//            }
+//
+//            setOnReselectListener {
+//                Toast.makeText(context, "item ${it.id} is reselected.", Toast.LENGTH_LONG).show()
+//            }
+//
+//            show(ID_BOOK)
+//
+//        }
 
         //switchFragment(bookFragment)
     }
@@ -135,9 +129,4 @@ class MainActivity : AppCompatActivity() {
             currentFragment = to;
         }
     }
-
-    private fun setActionBarTitle(title: String) {
-        supportActionBar?.title = title
-    }
-
 }
