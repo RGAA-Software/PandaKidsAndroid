@@ -1,20 +1,16 @@
 package com.tc.reading.ui.book
 
-import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.GridLayout
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.simform.refresh.SSPullToRefreshLayout
-import com.tc.reading.AppContext
 import com.tc.reading.databinding.FragmentBookBinding
 import com.tc.reading.ui.BaseFragment
 
