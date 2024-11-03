@@ -24,40 +24,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="25dp">
+        android:layout_marginTop="0dp">
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/top_bar"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="45dp"
             android:background="@color/white"
-            app:tabIndicatorColor="@color/colorPrimary"
-            app:tabMaxWidth="200dp"
-            app:tabMinWidth="150dp"
+            app:tabMaxWidth="130dp"
+            app:tabMinWidth="130dp"
             app:tabMode="fixed"
             app:tabSelectedTextColor="@color/colorPrimary"
             app:tabTextAppearance="@style/TopBar"
             app:tabIndicator="@drawable/top_bar_indicator"
             app:tabTextColor="#333333" >
-            <com.google.android.material.tabs.TabItem
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:text="Cartoon" />
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:text="Documentary" />
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:text="Book" />
 
         </com.google.android.material.tabs.TabLayout>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="JUST Test"/>
     </LinearLayout>
 </RelativeLayout>

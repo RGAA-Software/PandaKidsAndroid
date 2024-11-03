@@ -12,8 +12,8 @@ import com.tc.reading.ui.video.VideoFragment
 public class SimpleFragmentPagerAdapter constructor(fm: FragmentManager) :
     FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
-    private val tabTitles = arrayOf("Cartoon", "Documentary", "Comic", "Book")
-    private val fragment = arrayOf(VideoFragment(), DayFragment(), BookFragment(), AboutMeFragment())
+    private val tabTitles = arrayOf("Cartoon", "Documentary", "Movie", "Comic", "Math", "Science", "Book")
+    private val fragment = arrayOf(VideoFragment(), DayFragment(), BookFragment(), BookFragment(), BookFragment(), BookFragment(), AboutMeFragment())
 
     override fun getItem(position: Int): Fragment {
         return fragment[position]

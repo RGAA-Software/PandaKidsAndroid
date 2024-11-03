@@ -6,29 +6,18 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     tools:context=".ui.video.VideoFragment">
-    <View
-        android:id="@+id/test"
-        android:layout_width="match_parent"
-        android:layout_height="33dp"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@color/teal_200"/>
 
-<!--    <com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer-->
-<!--        android:id="@+id/test_video_player"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="200dp"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/test"/>-->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/video_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:paddingRight="12dp"/>
 
     <androidx.media3.ui.PlayerView
+        android:visibility="gone"
         android:id="@+id/video_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
-
-<!--    <Button-->
-<!--        android:id="@+id/test_button"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Press"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/test_video_player"/>-->
 
 </RelativeLayout>

@@ -1,20 +1,20 @@
 package com.tc.reading.ui.video
 
 import android.os.Bundle
-import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.OptIn
-import androidx.lifecycle.ViewModelProvider
 import androidx.media3.common.MediaItem
 import androidx.media3.common.util.UnstableApi
-import androidx.media3.exoplayer.DefaultRenderersFactory
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.ui.PlayerView
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.tc.reading.R
-import com.tc.reading.databinding.FragmentVideoBinding
 import com.tc.reading.ui.BaseFragment
+
 
 class VideoFragment() : BaseFragment() {
 
@@ -38,13 +38,33 @@ class VideoFragment() : BaseFragment() {
 //        exoPlayer.addMediaItem(MediaItem.fromUri("http://192.168.31.5:9988/resources/videos/week6.mp4"))
         exoPlayer.prepare()
         exoPlayer.playWhenReady = true
+
+        var videoList = view.findViewById<RecyclerView>(R.id.video_list)
+        var layoutManager = GridLayoutManager(context, 4)
+        videoList.addItemDecoration(VideoItemDecoration())
+        videoList.layoutManager = layoutManager
+        layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+            override fun getSpanSize(position: Int): Int {
+                return if (position == 0) 4 else 1
+            }
+        }
+        videoList.adapter = VideoAdapter()
+
     }
+
+    private fun setupViewPager() {
+    }
+
 
     override fun onResume() {
         super.onResume()
+//        if (mViewPager != null)
+//            mViewPager.startLoop();
     }
 
     override fun onPause() {
+//        if (mViewPager != null)
+//            mViewPager.stopLoop();
         super.onPause()
         exoPlayer.pause()
     }
@@ -52,6 +72,9 @@ class VideoFragment() : BaseFragment() {
     override fun onDestroy() {
         super.onDestroy()
         exoPlayer.release()
+
+//        if (mViewPager != null)
+//            mViewPager.stopLoop();
     }
 
     override fun onDestroyView() {

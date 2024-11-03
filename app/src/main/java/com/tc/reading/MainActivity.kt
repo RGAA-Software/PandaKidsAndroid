@@ -58,7 +58,6 @@ class MainActivity : AppCompatActivity() {
         binding.viewPager.adapter = SimpleFragmentPagerAdapter(supportFragmentManager);
         binding.topBar.setupWithViewPager(binding.viewPager)
 
-
 //        binding.bottomBar.apply {
 //            add(MeowBottomNavigation.Model(ID_BOOK, R.drawable.ic_book))
 //            add(MeowBottomNavigation.Model(ID_MOVIE, R.drawable.ic_movie))
