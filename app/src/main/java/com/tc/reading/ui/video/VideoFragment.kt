@@ -1,6 +1,7 @@
 package com.tc.reading.ui.video
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,21 +11,31 @@ import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.ui.PlayerView
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.simform.refresh.SSPullToRefreshLayout
+import com.tc.reading.App
+import com.tc.reading.AppContext
 import com.tc.reading.R
+import com.tc.reading.entity.VideoSuit
+import com.tc.reading.res.VideoResManager
 import com.tc.reading.ui.BaseFragment
 
 
 class VideoFragment() : BaseFragment() {
-
+    private val TAG = "VideoFragment";
     private lateinit var exoPlayer: ExoPlayer
     private lateinit var refreshLayout: SSPullToRefreshLayout
+    private lateinit var videoResManager: VideoResManager;
+    private var mainVideoSuits: MutableList<VideoSuit> = mutableListOf()
+    private var recommendVideoSuit: MutableList<VideoSuit> = mutableListOf()
+    private lateinit var videoAdapter: VideoAdapter
+    private lateinit var appCtx: AppContext
 
     @OptIn(UnstableApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        videoResManager = appContext.getVideoResManager()
+        appCtx = (requireActivity().application as App).getAppContext()
         exoPlayer = activity?.let { ExoPlayer.Builder(it).build() }!!
     }
 
@@ -63,7 +74,30 @@ class VideoFragment() : BaseFragment() {
                 return if (position == 0) 4 else 1
             }
         }
-        videoList.adapter = VideoAdapter()
+        // mock begin
+        recommendVideoSuit.add(VideoSuit())
+        recommendVideoSuit.add(VideoSuit())
+        recommendVideoSuit.add(VideoSuit())
+        recommendVideoSuit.add(VideoSuit())
+        recommendVideoSuit.add(VideoSuit())
+        // mock end
+
+        videoAdapter = VideoAdapter(appCtx, mainVideoSuits, recommendVideoSuit)
+        videoList.adapter = videoAdapter
+
+        videoResManager.queryVideoSuits(1, 10) { r, vs ->
+            if (!r || vs == null) {
+                return@queryVideoSuits;
+            }
+            for (suit in vs) {
+                Log.i(TAG, "" + suit)
+            }
+            mainVideoSuits.removeAll(vs)
+            mainVideoSuits.addAll(vs)
+            appContext.postUITask {
+                videoAdapter.notifyDataSetChanged()
+            }
+        }
 
     }
 

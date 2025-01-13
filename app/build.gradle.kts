@@ -59,6 +59,7 @@ dependencies {
 
     //implementation ("com.github.afreakyelf:Pdf-Viewer:2.0.7")
     implementation(project(":pdfViewer"))
+    implementation(project(":basic"))
     //implementation("com.github.CarGuo.GSYVideoPlayer:GSYVideoPlayer:v8.6.0-release-jitpack")
 //    implementation("com.github.CarGuo.GSYVideoPlayer:GSYVideoPlayer:v9.0.0-release-jitpack")
     implementation("com.etebarian:meow-bottom-navigation:1.2.0")

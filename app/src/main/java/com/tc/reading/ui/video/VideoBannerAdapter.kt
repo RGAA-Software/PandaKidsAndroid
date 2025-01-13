@@ -2,12 +2,13 @@ package com.tc.reading.ui.video
 
 import com.tc.reading.R
 import com.tc.reading.entity.Video
+import com.tc.reading.entity.VideoSuit
 import com.zhpan.bannerview.BaseBannerAdapter
 import com.zhpan.bannerview.BaseViewHolder
 
-class SimpleAdapter : BaseBannerAdapter<Video>() {
+class SimpleAdapter : BaseBannerAdapter<VideoSuit>() {
 
-    override fun bindData(holder: BaseViewHolder<Video>, data: Video?, position: Int, pageSize: Int) {
+    override fun bindData(holder: BaseViewHolder<VideoSuit>, data: VideoSuit?, position: Int, pageSize: Int) {
         if (data == null) {
             return;
         }

@@ -11,7 +11,7 @@ class App : Application() {
         appContext = AppContext(applicationContext)
     }
 
-    public fun getAppContext(): AppContext {
+    fun getAppContext(): AppContext {
         return appContext;
     }
 
