@@ -6,7 +6,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="230dp"/>
+        android:layout_height="238dp"/>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/id_content"

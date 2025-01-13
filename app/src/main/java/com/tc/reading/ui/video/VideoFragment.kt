@@ -12,6 +12,7 @@ import androidx.media3.ui.PlayerView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.simform.refresh.SSPullToRefreshLayout
 import com.tc.reading.R
 import com.tc.reading.ui.BaseFragment
 
@@ -19,6 +20,7 @@ import com.tc.reading.ui.BaseFragment
 class VideoFragment() : BaseFragment() {
 
     private lateinit var exoPlayer: ExoPlayer
+    private lateinit var refreshLayout: SSPullToRefreshLayout
 
     @OptIn(UnstableApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,8 +41,21 @@ class VideoFragment() : BaseFragment() {
         exoPlayer.prepare()
         exoPlayer.playWhenReady = true
 
-        var videoList = view.findViewById<RecyclerView>(R.id.video_list)
-        var layoutManager = GridLayoutManager(context, 4)
+        refreshLayout = view.findViewById(R.id.refresh_layout)
+        refreshLayout.apply {
+            setRepeatMode(SSPullToRefreshLayout.RepeatMode.REPEAT);
+            setRepeatCount(SSPullToRefreshLayout.RepeatCount.INFINITE);
+            setRefreshStyle(SSPullToRefreshLayout.RefreshStyle.NORMAL);
+            setLottieAnimation("lottie_clock.json");
+            setOnRefreshListener {
+                handler.postDelayed({
+                    setRefreshing(false);
+                }, 2000)
+            }
+        }
+
+        val videoList = view.findViewById<RecyclerView>(R.id.video_list)
+        val layoutManager = GridLayoutManager(context, 4)
         videoList.addItemDecoration(VideoItemDecoration())
         videoList.layoutManager = layoutManager
         layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
