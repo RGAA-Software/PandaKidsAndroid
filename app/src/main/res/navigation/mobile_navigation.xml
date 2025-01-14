@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.tc.reading.ui.video.VideoFragment"
+        android:name="com.tc.reading.ui.video.VideoSuitFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_video" />
 

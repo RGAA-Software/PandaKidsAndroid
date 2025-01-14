@@ -31,6 +31,7 @@ class NetworkRequester {
                 }
                 index++
             }
+            Log.i(TAG, "url: $targetUrl")
             return httpGet(targetUrl)
         }
 

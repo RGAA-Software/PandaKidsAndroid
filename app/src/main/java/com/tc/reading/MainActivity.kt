@@ -2,10 +2,8 @@ package com.tc.reading
 
 import android.os.Bundle
 import android.widget.RelativeLayout
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.etebarian.meowbottomnavigation.MeowBottomNavigation
 //import com.shuyu.gsyvideoplayer.player.IjkPlayerManager
 //import com.shuyu.gsyvideoplayer.player.PlayerFactory
 //import com.shuyu.gsyvideoplayer.player.SystemPlayerManager
@@ -14,7 +12,7 @@ import com.tc.reading.ui.SimpleFragmentPagerAdapter
 import com.tc.reading.ui.book.BookFragment
 import com.tc.reading.ui.day.DayFragment
 import com.tc.reading.ui.me.AboutMeFragment
-import com.tc.reading.ui.video.VideoFragment
+import com.tc.reading.ui.video.VideoSuitFragment
 import com.tc.reading.util.ScreenUtil
 //import tv.danmaku.ijk.media.exo2.Exo2PlayerManager
 
@@ -31,7 +29,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private lateinit var bookFragment: BookFragment
-    private lateinit var videoFragment: VideoFragment
+    private lateinit var videoSuitFragment: VideoSuitFragment
     private lateinit var dayFragment: DayFragment
     private lateinit var aboutMeFragment: AboutMeFragment
     private var currentFragment: Fragment? = null
@@ -48,7 +46,7 @@ class MainActivity : AppCompatActivity() {
         appContext = (application as App).getAppContext();
 
         bookFragment = BookFragment();
-        videoFragment = VideoFragment();
+        videoSuitFragment = VideoSuitFragment();
         dayFragment = DayFragment();
         aboutMeFragment = AboutMeFragment();
 

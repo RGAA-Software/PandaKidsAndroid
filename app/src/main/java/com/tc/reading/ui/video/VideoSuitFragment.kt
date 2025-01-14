@@ -1,5 +1,6 @@
 package com.tc.reading.ui.video
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -21,14 +22,14 @@ import com.tc.reading.res.VideoResManager
 import com.tc.reading.ui.BaseFragment
 
 
-class VideoFragment() : BaseFragment() {
+class VideoSuitFragment() : BaseFragment() {
     private val TAG = "VideoFragment";
     private lateinit var exoPlayer: ExoPlayer
     private lateinit var refreshLayout: SSPullToRefreshLayout
     private lateinit var videoResManager: VideoResManager;
     private var mainVideoSuits: MutableList<VideoSuit> = mutableListOf()
     private var recommendVideoSuit: MutableList<VideoSuit> = mutableListOf()
-    private lateinit var videoAdapter: VideoAdapter
+    private lateinit var videoSuitAdapter: VideoSuitAdapter
     private lateinit var appCtx: AppContext
 
     @OptIn(UnstableApi::class)
@@ -67,7 +68,7 @@ class VideoFragment() : BaseFragment() {
 
         val videoList = view.findViewById<RecyclerView>(R.id.video_list)
         val layoutManager = GridLayoutManager(context, 4)
-        videoList.addItemDecoration(VideoItemDecoration())
+        videoList.addItemDecoration(VideoSuitItemDecoration())
         videoList.layoutManager = layoutManager
         layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
@@ -75,8 +76,16 @@ class VideoFragment() : BaseFragment() {
             }
         }
 
-        videoAdapter = VideoAdapter(appCtx, mainVideoSuits, recommendVideoSuit)
-        videoList.adapter = videoAdapter
+        videoSuitAdapter = VideoSuitAdapter(appCtx, mainVideoSuits, recommendVideoSuit)
+        videoList.adapter = videoSuitAdapter
+        videoSuitAdapter.onVideoSuitClickListener = object: VideoSuitAdapter.OnVideoSuitClickListener {
+            override fun onVideoSuitClicked(vs: VideoSuit) {
+                Log.i(TAG, "==> $vs")
+                val intent = Intent(requireActivity(), VideoListActivity::class.java)
+                intent.putExtra("videoSuit", vs)
+                startActivity(intent)
+            }
+        }
 
         requestRecommendSuits()
         requestVideoSuits()
@@ -88,20 +97,20 @@ class VideoFragment() : BaseFragment() {
 
     override fun onResume() {
         super.onResume()
-        videoAdapter.onResume()
+        videoSuitAdapter.onResume()
 
     }
 
     override fun onPause() {
         super.onPause()
-        videoAdapter.onPause()
+        videoSuitAdapter.onPause()
         exoPlayer.pause()
     }
 
     override fun onDestroy() {
         super.onDestroy()
         exoPlayer.release()
-        videoAdapter.onDestroy()
+        videoSuitAdapter.onDestroy()
     }
 
     override fun onDestroyView() {
@@ -109,7 +118,7 @@ class VideoFragment() : BaseFragment() {
 
     }
 
-    fun requestRecommendSuits() {
+    private fun requestRecommendSuits() {
         videoResManager.getTodayVideoSuits { r, vs ->
             if (!r || vs == null) {
                 return@getTodayVideoSuits;
@@ -120,7 +129,7 @@ class VideoFragment() : BaseFragment() {
             recommendVideoSuit.removeAll(vs)
             recommendVideoSuit.addAll(vs)
             appContext.postUITask {
-                videoAdapter.refreshBanner()
+                videoSuitAdapter.refreshBanner()
             }
         }
     }
@@ -136,7 +145,7 @@ class VideoFragment() : BaseFragment() {
             mainVideoSuits.removeAll(vs)
             mainVideoSuits.addAll(vs)
             appContext.postUITask {
-                videoAdapter.notifyDataSetChanged()
+                videoSuitAdapter.notifyDataSetChanged()
             }
         }
     }

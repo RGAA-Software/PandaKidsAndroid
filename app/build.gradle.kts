@@ -85,6 +85,7 @@ dependencies {
 
     // banner
     implementation("com.github.zhpanvip:bannerviewpager:3.5.12")
+    implementation("androidx.activity:activity:1.9.3")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

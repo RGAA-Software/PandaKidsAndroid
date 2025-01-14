@@ -3,9 +3,9 @@ package com.tc.reading.ui.video
 import android.content.res.Resources
 import android.text.TextUtils
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView.OnItemClickListener
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -16,16 +16,20 @@ import com.tc.reading.entity.VideoSuit
 import com.zhpan.bannerview.BannerViewPager
 import com.zhpan.bannerview.constants.PageStyle
 
-class VideoAdapter(private var appCtx: AppContext,
-                   private var mainVideoSuits: MutableList<VideoSuit>,
-                   private var recommendVideoSuit: MutableList<VideoSuit>)
-    : RecyclerView.Adapter<VideoAdapter.VideoHolder>() {
+class VideoSuitAdapter(private var appCtx: AppContext,
+                       private var mainVideoSuits: MutableList<VideoSuit>,
+                       private var recommendVideoSuit: MutableList<VideoSuit>)
+    : RecyclerView.Adapter<VideoSuitAdapter.VideoHolder>() {
     private val TAG = "VideoAdapter"
-    private var mViewPager: BannerViewPager<VideoSuit>? = null
-
+    private var viewPager: BannerViewPager<VideoSuit>? = null
+    public var onVideoSuitClickListener: OnVideoSuitClickListener? = null
 
     class VideoHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
+    }
+
+    interface OnVideoSuitClickListener {
+        fun onVideoSuitClicked(vs: VideoSuit)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VideoHolder {
@@ -33,10 +37,9 @@ class VideoAdapter(private var appCtx: AppContext,
         if (viewType == 0) {
             // banner
             view = View.inflate(parent.context, R.layout.layout_banner, null)
-//            view = LayoutInflater.from(parent.context).inflate(R.layout.layout_banner, parent, false);
 
             val bannerViewPager = view.findViewById<BannerViewPager<VideoSuit>>(R.id.banner_view)!!
-            mViewPager = bannerViewPager
+            viewPager = bannerViewPager
             //mViewPager.setPageStyle(PageStyle.MULTI_PAGE_SCALE)
             bannerViewPager.setPageStyle(PageStyle.MULTI_PAGE)
             bannerViewPager.setPageMargin(15)
@@ -50,13 +53,12 @@ class VideoAdapter(private var appCtx: AppContext,
             bannerViewPager.addData(recommendVideoSuit);
         } else {
             view = View.inflate(parent.context, R.layout.item_video, null)
-//            view = LayoutInflater.from(parent.context).inflate(R.layout.item_video, parent, false);
         }
         return VideoHolder(view);
     }
 
     fun refreshBanner() {
-        mViewPager?.refreshData(recommendVideoSuit);
+        viewPager?.refreshData(recommendVideoSuit);
     }
 
     override fun getItemCount(): Int {
@@ -74,6 +76,15 @@ class VideoAdapter(private var appCtx: AppContext,
         if (position == 0) {
             return
         }
+
+        // click
+        holder.itemView.setOnClickListener {
+            if (onVideoSuitClickListener != null) {
+                val vs = mainVideoSuits[position - 1]
+                onVideoSuitClickListener!!.onVideoSuitClicked(vs)
+            }
+        }
+
         val suit = mainVideoSuits.get(position - 1)
         val titleView = holder.itemView.findViewById<TextView>(R.id.id_title)
         titleView.text = suit.name
