@@ -5,7 +5,6 @@ import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView.OnItemClickListener
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -15,6 +14,7 @@ import com.tc.reading.R
 import com.tc.reading.entity.VideoSuit
 import com.zhpan.bannerview.BannerViewPager
 import com.zhpan.bannerview.constants.PageStyle
+import com.zhpan.indicator.enums.IndicatorStyle
 
 class VideoSuitAdapter(private var appCtx: AppContext,
                        private var mainVideoSuits: MutableList<VideoSuit>,
@@ -39,11 +39,28 @@ class VideoSuitAdapter(private var appCtx: AppContext,
             view = View.inflate(parent.context, R.layout.layout_banner, null)
 
             val bannerViewPager = view.findViewById<BannerViewPager<VideoSuit>>(R.id.banner_view)!!
+            val density = Resources.getSystem().displayMetrics.density
             viewPager = bannerViewPager
             //mViewPager.setPageStyle(PageStyle.MULTI_PAGE_SCALE)
             bannerViewPager.setPageStyle(PageStyle.MULTI_PAGE)
             bannerViewPager.setPageMargin(15)
-            bannerViewPager.setRevealWidth((Resources.getSystem().displayMetrics.density * 280).toInt())
+            bannerViewPager.setIndicatorStyle(IndicatorStyle.ROUND_RECT)
+            bannerViewPager.setIndicatorHeight((density * 7).toInt())
+            bannerViewPager.setIndicatorSliderWidth((density * 20).toInt())
+            bannerViewPager.setIndicatorSliderColor(appCtx.getColor(R.color.white), appCtx.getColor(com.rajat.pdfviewer.R.color.colorPrimary))
+            val scWidth = Resources.getSystem().displayMetrics.widthPixels
+            if (scWidth <= 1280) {
+                bannerViewPager.setRevealWidth((density * 280).toInt())
+            }
+            else if (scWidth <= 1920) {
+                bannerViewPager.setRevealWidth((density * 400).toInt())
+            }
+            else if (scWidth <= 2560) {
+                bannerViewPager.setRevealWidth((density * 500).toInt())
+            }
+            else if (scWidth <= 3840) {
+                bannerViewPager.setRevealWidth((density * 500).toInt())
+            }
             bannerViewPager.setInterval(5000)
             bannerViewPager.apply {
                 adapter = VideoBannerAdapter(appCtx)
@@ -52,7 +69,7 @@ class VideoSuitAdapter(private var appCtx: AppContext,
 
             bannerViewPager.addData(recommendVideoSuit);
         } else {
-            view = View.inflate(parent.context, R.layout.item_video, null)
+            view = View.inflate(parent.context, R.layout.item_video_suits, null)
         }
         return VideoHolder(view);
     }

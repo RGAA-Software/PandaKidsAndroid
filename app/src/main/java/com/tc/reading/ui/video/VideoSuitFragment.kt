@@ -24,7 +24,6 @@ import com.tc.reading.ui.BaseFragment
 
 class VideoSuitFragment() : BaseFragment() {
     private val TAG = "VideoFragment";
-    private lateinit var exoPlayer: ExoPlayer
     private lateinit var refreshLayout: SSPullToRefreshLayout
     private lateinit var videoResManager: VideoResManager;
     private var mainVideoSuits: MutableList<VideoSuit> = mutableListOf()
@@ -37,7 +36,6 @@ class VideoSuitFragment() : BaseFragment() {
         super.onCreate(savedInstanceState)
         videoResManager = appContext.getVideoResManager()
         appCtx = (requireActivity().application as App).getAppContext()
-        exoPlayer = activity?.let { ExoPlayer.Builder(it).build() }!!
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -46,12 +44,6 @@ class VideoSuitFragment() : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val playerView: PlayerView = view.findViewById(R.id.video_view);
-        playerView.player = exoPlayer
-        exoPlayer.addMediaItem(MediaItem.fromUri("http://192.168.31.5:9988/pandakids/stream/videos/week6.mp4"))
-//        exoPlayer.addMediaItem(MediaItem.fromUri("http://192.168.31.5:9988/resources/videos/week6.mp4"))
-        exoPlayer.prepare()
-        exoPlayer.playWhenReady = true
 
         refreshLayout = view.findViewById(R.id.refresh_layout)
         refreshLayout.apply {
@@ -104,18 +96,15 @@ class VideoSuitFragment() : BaseFragment() {
     override fun onPause() {
         super.onPause()
         videoSuitAdapter.onPause()
-        exoPlayer.pause()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        exoPlayer.release()
         videoSuitAdapter.onDestroy()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-
     }
 
     private fun requestRecommendSuits() {
