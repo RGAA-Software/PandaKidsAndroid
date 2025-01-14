@@ -74,17 +74,58 @@ class VideoFragment() : BaseFragment() {
                 return if (position == 0) 4 else 1
             }
         }
-        // mock begin
-        recommendVideoSuit.add(VideoSuit())
-        recommendVideoSuit.add(VideoSuit())
-        recommendVideoSuit.add(VideoSuit())
-        recommendVideoSuit.add(VideoSuit())
-        recommendVideoSuit.add(VideoSuit())
-        // mock end
 
         videoAdapter = VideoAdapter(appCtx, mainVideoSuits, recommendVideoSuit)
         videoList.adapter = videoAdapter
 
+        requestRecommendSuits()
+        requestVideoSuits()
+    }
+
+    private fun setupViewPager() {
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        videoAdapter.onResume()
+
+    }
+
+    override fun onPause() {
+        super.onPause()
+        videoAdapter.onPause()
+        exoPlayer.pause()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        exoPlayer.release()
+        videoAdapter.onDestroy()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+
+    }
+
+    fun requestRecommendSuits() {
+        videoResManager.getTodayVideoSuits { r, vs ->
+            if (!r || vs == null) {
+                return@getTodayVideoSuits;
+            }
+            for (suit in vs) {
+                Log.i(TAG, "" + suit)
+            }
+            recommendVideoSuit.removeAll(vs)
+            recommendVideoSuit.addAll(vs)
+            appContext.postUITask {
+                videoAdapter.refreshBanner()
+            }
+        }
+    }
+
+    private fun requestVideoSuits() {
         videoResManager.queryVideoSuits(1, 10) { r, vs ->
             if (!r || vs == null) {
                 return@queryVideoSuits;
@@ -98,36 +139,5 @@ class VideoFragment() : BaseFragment() {
                 videoAdapter.notifyDataSetChanged()
             }
         }
-
-    }
-
-    private fun setupViewPager() {
-    }
-
-
-    override fun onResume() {
-        super.onResume()
-//        if (mViewPager != null)
-//            mViewPager.startLoop();
-    }
-
-    override fun onPause() {
-//        if (mViewPager != null)
-//            mViewPager.stopLoop();
-        super.onPause()
-        exoPlayer.pause()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        exoPlayer.release()
-
-//        if (mViewPager != null)
-//            mViewPager.stopLoop();
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-
     }
 }

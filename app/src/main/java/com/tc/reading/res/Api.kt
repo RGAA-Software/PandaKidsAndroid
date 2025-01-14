@@ -3,8 +3,12 @@ package com.tc.reading.res
 class Api {
 
     companion object {
-        public val API_VIDEOSUIT_QUERY = "/pandakids/videosuit/query";
-        public val API_VIDEOSUIT_QUERY_LIKE_NAME = "/pandakids/videosuit/query/like/name";
+        // video suits
+        val API_VIDEOSUIT_QUERY = "/pandakids/videosuit/query"
+        val API_VIDEOSUIT_QUERY_LIKE_NAME = "/pandakids/videosuit/query/like/name"
+
+        // recommend
+        val API_TODAY_VIDEOSUITS = "/pandakids/recommend/today/videosuits"
     }
 
 }
