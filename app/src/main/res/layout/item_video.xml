@@ -6,18 +6,17 @@
 
     <View
         android:layout_width="wrap_content"
-        android:layout_height="210dp"/>
+        android:layout_height="220dp"/>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/id_content"
-        android:layout_width="200dp"
+        android:layout_width="220dp"
         android:layout_height="170dp"
-        android:layout_marginTop="10dp"
+        android:layout_margin="8dp"
         app:cardCornerRadius="10dp"
-        app:cardBackgroundColor="@color/colorPrimary">
+        app:cardElevation="5dp">
 
         <ImageView
-            android:visibility="gone"
             android:id="@+id/id_cover"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -34,7 +33,7 @@
         android:layout_marginTop="3dp"
         android:textSize="14sp"
         android:textStyle="bold"
-        android:layout_marginLeft="2dp"
+        android:layout_marginLeft="10dp"
         android:text="Book RAZ"/>
 
 </RelativeLayout>

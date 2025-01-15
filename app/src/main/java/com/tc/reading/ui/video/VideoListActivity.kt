@@ -68,7 +68,7 @@ class VideoListActivity : AppCompatActivity() {
             }
 
             videos.forEach {
-                Log.i(TAG, "video: " + it.name)
+                Log.i(TAG, "video: " + it.name + ", cover: " + it.cover)
             }
             mainVideos.removeAll(videos)
             mainVideos.addAll(videos)

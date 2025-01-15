@@ -1,5 +1,6 @@
 package com.tc.reading.ui.video
 
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -14,7 +15,7 @@ class VideoListAdapter(private var appCtx: AppContext,
                        private var videos: MutableList<PkVideo>)
     : RecyclerView.Adapter<VideoListAdapter.VideoHolder>() {
 
-    private val TAG = "VideoAdapter"
+    private val TAG = "VideoListAdapter"
     var onVideoClickListener: OnVideoClickListener? = null
 
     class VideoHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -48,8 +49,8 @@ class VideoListAdapter(private var appCtx: AppContext,
         titleView.text = video.name
 
         val coverView = holder.itemView.findViewById<ImageView>(R.id.id_cover)
-        val coverUrl = appCtx.getBaseServerUrl() //+ "/" + video.cover
-        //Log.i(TAG, "coverUrl: $coverUrl")
+        val coverUrl = appCtx.getBaseServerUrl() + "/" + video.cover
+        Log.i(TAG, "coverUrl: $coverUrl")
         Glide.with(coverView).load(coverUrl).into(coverView)
     }
 
