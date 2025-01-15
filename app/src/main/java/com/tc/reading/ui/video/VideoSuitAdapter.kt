@@ -35,39 +35,40 @@ class VideoSuitAdapter(private var appCtx: AppContext,
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VideoHolder {
         val view: View
         if (viewType == 0) {
+            view = View.inflate(parent.context, R.layout.item_video_suit_filter, null)
             // banner
-            view = View.inflate(parent.context, R.layout.layout_banner, null)
-
-            val bannerViewPager = view.findViewById<BannerViewPager<PkVideoSuit>>(R.id.banner_view)!!
-            val density = Resources.getSystem().displayMetrics.density
-            viewPager = bannerViewPager
-            //mViewPager.setPageStyle(PageStyle.MULTI_PAGE_SCALE)
-            bannerViewPager.setPageStyle(PageStyle.MULTI_PAGE)
-            bannerViewPager.setPageMargin(15)
-            bannerViewPager.setIndicatorStyle(IndicatorStyle.ROUND_RECT)
-            bannerViewPager.setIndicatorHeight((density * 7).toInt())
-            bannerViewPager.setIndicatorSliderWidth((density * 20).toInt())
-            bannerViewPager.setIndicatorSliderColor(appCtx.getColor(R.color.white), appCtx.getColor(com.rajat.pdfviewer.R.color.colorPrimary))
-            val scWidth = Resources.getSystem().displayMetrics.widthPixels
-            if (scWidth <= 1280) {
-                bannerViewPager.setRevealWidth((density * 280).toInt())
-            }
-            else if (scWidth <= 1920) {
-                bannerViewPager.setRevealWidth((density * 400).toInt())
-            }
-            else if (scWidth <= 2560) {
-                bannerViewPager.setRevealWidth((density * 500).toInt())
-            }
-            else if (scWidth <= 3840) {
-                bannerViewPager.setRevealWidth((density * 500).toInt())
-            }
-            bannerViewPager.setInterval(5000)
-            bannerViewPager.apply {
-                adapter = VideoBannerAdapter(appCtx)
-                //setLifecycleRegistry(lifecycle)
-            }.create()
-
-            bannerViewPager.addData(recommendVideoSuit);
+//            view = View.inflate(parent.context, R.layout.layout_banner, null)
+//
+//            val bannerViewPager = view.findViewById<BannerViewPager<PkVideoSuit>>(R.id.banner_view)!!
+//            val density = Resources.getSystem().displayMetrics.density
+//            viewPager = bannerViewPager
+//            //mViewPager.setPageStyle(PageStyle.MULTI_PAGE_SCALE)
+//            bannerViewPager.setPageStyle(PageStyle.MULTI_PAGE)
+//            bannerViewPager.setPageMargin(15)
+//            bannerViewPager.setIndicatorStyle(IndicatorStyle.ROUND_RECT)
+//            bannerViewPager.setIndicatorHeight((density * 7).toInt())
+//            bannerViewPager.setIndicatorSliderWidth((density * 20).toInt())
+//            bannerViewPager.setIndicatorSliderColor(appCtx.getColor(R.color.white), appCtx.getColor(com.rajat.pdfviewer.R.color.colorPrimary))
+//            val scWidth = Resources.getSystem().displayMetrics.widthPixels
+//            if (scWidth <= 1280) {
+//                bannerViewPager.setRevealWidth((density * 280).toInt())
+//            }
+//            else if (scWidth <= 1920) {
+//                bannerViewPager.setRevealWidth((density * 400).toInt())
+//            }
+//            else if (scWidth <= 2560) {
+//                bannerViewPager.setRevealWidth((density * 500).toInt())
+//            }
+//            else if (scWidth <= 3840) {
+//                bannerViewPager.setRevealWidth((density * 500).toInt())
+//            }
+//            bannerViewPager.setInterval(5000)
+//            bannerViewPager.apply {
+//                adapter = VideoBannerAdapter(appCtx)
+//                //setLifecycleRegistry(lifecycle)
+//            }.create()
+//
+//            bannerViewPager.addData(recommendVideoSuit);
         } else {
             view = View.inflate(parent.context, R.layout.item_video_suits, null)
         }

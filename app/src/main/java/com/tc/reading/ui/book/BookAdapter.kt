@@ -9,8 +9,6 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.rajat.pdfviewer.PdfViewerActivity
-import com.rajat.pdfviewer.util.saveTo
 import com.tc.reading.R
 import com.tc.reading.databinding.ItemBookBinding
 
@@ -35,16 +33,18 @@ class BookAdapter(private var context: Context, private var books: MutableList<B
         holder.itemView.setOnClickListener {
             Toast.makeText(context, "index:" + position, Toast.LENGTH_SHORT).show();
 
-//            context.startActivity(Intent(context, BookContentActivity::class.java));
+            context.startActivity(Intent(context, PdfActivity::class.java));
 
-            val intent = PdfViewerActivity.launchPdfFromPath(
-                context = context,
-                path = "01.Taking Care of Chase.pdf",
-                pdfTitle = "01.Taking Care of Chase",
-                saveTo = saveTo.ASK_EVERYTIME,
-                fromAssets = true
-            )
-            context.startActivity(intent)
+//            context.startActivity(Intent(context, BookContentActivity::class.java));
+//
+//            val intent = PdfViewerActivity.launchPdfFromPath(
+//                context = context,
+//                path = "01.Taking Care of Chase.pdf",
+//                pdfTitle = null,
+//                saveTo = saveTo.ASK_EVERYTIME,
+//                fromAssets = true
+//            )
+//            context.startActivity(intent)
 
         }
     }

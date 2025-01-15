@@ -44,8 +44,8 @@ class DayFragment() : BaseFragment() {
         binding.dateYear.text = date.year;
         binding.dateMonth.text = date.month;
         binding.dateDay.text = date.day;
-        binding.refreshLayout.setColorSchemeResources(com.rajat.pdfviewer.R.color.colorPrimary,
-            com.rajat.pdfviewer.R.color.colorPrimaryDark);
+        binding.refreshLayout.setColorSchemeResources(R.color.colorPrimary,
+            R.color.colorPrimaryDark);
         binding.refreshLayout.setOnRefreshListener {
             refresh();
             appContext.postDelayUITask({
