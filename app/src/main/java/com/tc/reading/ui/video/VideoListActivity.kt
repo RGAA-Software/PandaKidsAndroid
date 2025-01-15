@@ -12,8 +12,8 @@ import com.tc.reading.App
 import com.tc.reading.AppContext
 
 import com.tc.reading.R;
-import com.tc.reading.entity.Video
-import com.tc.reading.entity.VideoSuit
+import com.tc.reading.entity.PkVideo
+import com.tc.reading.entity.PkVideoSuit
 import com.tc.reading.res.VideoResManager
 import com.tc.reading.util.ScreenUtil
 
@@ -24,7 +24,7 @@ class VideoListActivity : AppCompatActivity() {
     private lateinit var appCtx: AppContext
     private lateinit var videoResManager: VideoResManager
     private lateinit var videoListAdapter: VideoListAdapter
-    private var mainVideos = mutableListOf<Video>()
+    private var mainVideos = mutableListOf<PkVideo>()
     private lateinit var exoPlayer: ExoPlayer
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,7 +34,7 @@ class VideoListActivity : AppCompatActivity() {
 
         appCtx = (application as App).getAppContext()
         videoResManager = appCtx.getVideoResManager()
-        val videoSuit = intent.getSerializableExtra("videoSuit") as VideoSuit
+        val videoSuit = intent.getSerializableExtra("videoSuit") as PkVideoSuit
         Log.i(TAG, "VideoList: $videoSuit")
 
         val videoList = findViewById<RecyclerView>(R.id.video_list)
@@ -45,7 +45,7 @@ class VideoListActivity : AppCompatActivity() {
         videoListAdapter = VideoListAdapter(appCtx, mainVideos)
         videoList.adapter = videoListAdapter
         videoListAdapter.onVideoClickListener = object: VideoListAdapter.OnVideoClickListener {
-            override fun onVideoClicked(video: Video) {
+            override fun onVideoClicked(video: PkVideo) {
                 Log.i(TAG, "video ==> $video")
                 if (exoPlayer.isPlaying) {
 
@@ -61,12 +61,9 @@ class VideoListActivity : AppCompatActivity() {
         exoPlayer.prepare()
         exoPlayer.playWhenReady = true
 
-        videoResManager.queryVideos(1, 200, videoSuit.id) {r, videos ->
-            if (!r) {
+        videoResManager.queryVideos(1, 200, videoSuit.id) {videos ->
+            if (videos == null || videos.size <= 0) {
                 Log.e(TAG, "query video for $videoSuit failed!")
-                return@queryVideos
-            }
-            if (videos == null) {
                 return@queryVideos
             }
 

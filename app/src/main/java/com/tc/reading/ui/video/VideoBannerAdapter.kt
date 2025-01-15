@@ -4,13 +4,13 @@ import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.tc.reading.AppContext
 import com.tc.reading.R
-import com.tc.reading.entity.VideoSuit
+import com.tc.reading.entity.PkVideoSuit
 import com.zhpan.bannerview.BaseBannerAdapter
 import com.zhpan.bannerview.BaseViewHolder
 
-class VideoBannerAdapter(private var appCtx: AppContext) : BaseBannerAdapter<VideoSuit>() {
+class VideoBannerAdapter(private var appCtx: AppContext) : BaseBannerAdapter<PkVideoSuit>() {
 
-    override fun bindData(holder: BaseViewHolder<VideoSuit>, data: VideoSuit?, position: Int, pageSize: Int) {
+    override fun bindData(holder: BaseViewHolder<PkVideoSuit>, data: PkVideoSuit?, position: Int, pageSize: Int) {
         if (data == null) {
             return;
         }

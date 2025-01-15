@@ -7,17 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.OptIn
-import androidx.media3.common.MediaItem
 import androidx.media3.common.util.UnstableApi
-import androidx.media3.exoplayer.ExoPlayer
-import androidx.media3.ui.PlayerView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.simform.refresh.SSPullToRefreshLayout
 import com.tc.reading.App
 import com.tc.reading.AppContext
 import com.tc.reading.R
-import com.tc.reading.entity.VideoSuit
+import com.tc.reading.entity.PkVideoSuit
 import com.tc.reading.res.VideoResManager
 import com.tc.reading.ui.BaseFragment
 
@@ -26,8 +23,8 @@ class VideoSuitFragment() : BaseFragment() {
     private val TAG = "VideoFragment";
     private lateinit var refreshLayout: SSPullToRefreshLayout
     private lateinit var videoResManager: VideoResManager;
-    private var mainVideoSuits: MutableList<VideoSuit> = mutableListOf()
-    private var recommendVideoSuit: MutableList<VideoSuit> = mutableListOf()
+    private var mainVideoSuits: MutableList<PkVideoSuit> = mutableListOf()
+    private var recommendVideoSuit: MutableList<PkVideoSuit> = mutableListOf()
     private lateinit var videoSuitAdapter: VideoSuitAdapter
     private lateinit var appCtx: AppContext
 
@@ -71,7 +68,7 @@ class VideoSuitFragment() : BaseFragment() {
         videoSuitAdapter = VideoSuitAdapter(appCtx, mainVideoSuits, recommendVideoSuit)
         videoList.adapter = videoSuitAdapter
         videoSuitAdapter.onVideoSuitClickListener = object: VideoSuitAdapter.OnVideoSuitClickListener {
-            override fun onVideoSuitClicked(vs: VideoSuit) {
+            override fun onVideoSuitClicked(vs: PkVideoSuit) {
                 Log.i(TAG, "==> $vs")
                 val intent = Intent(requireActivity(), VideoListActivity::class.java)
                 intent.putExtra("videoSuit", vs)
@@ -108,8 +105,8 @@ class VideoSuitFragment() : BaseFragment() {
     }
 
     private fun requestRecommendSuits() {
-        videoResManager.getTodayVideoSuits { r, vs ->
-            if (!r || vs == null) {
+        videoResManager.getTodayVideoSuits { vs ->
+            if (vs == null || vs.size <= 0) {
                 return@getTodayVideoSuits;
             }
             for (suit in vs) {
@@ -124,8 +121,8 @@ class VideoSuitFragment() : BaseFragment() {
     }
 
     private fun requestVideoSuits() {
-        videoResManager.queryVideoSuits(1, 10) { r, vs ->
-            if (!r || vs == null) {
+        videoResManager.queryVideoSuits(1, 20) { vs ->
+            if (vs == null || vs.size <= 0) {
                 return@queryVideoSuits;
             }
             for (suit in vs) {

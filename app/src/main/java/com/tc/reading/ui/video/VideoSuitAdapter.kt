@@ -11,17 +11,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.tc.reading.AppContext
 import com.tc.reading.R
-import com.tc.reading.entity.VideoSuit
+import com.tc.reading.entity.PkVideoSuit
 import com.zhpan.bannerview.BannerViewPager
 import com.zhpan.bannerview.constants.PageStyle
 import com.zhpan.indicator.enums.IndicatorStyle
 
 class VideoSuitAdapter(private var appCtx: AppContext,
-                       private var mainVideoSuits: MutableList<VideoSuit>,
-                       private var recommendVideoSuit: MutableList<VideoSuit>)
+                       private var mainVideoSuits: MutableList<PkVideoSuit>,
+                       private var recommendVideoSuit: MutableList<PkVideoSuit>)
     : RecyclerView.Adapter<VideoSuitAdapter.VideoHolder>() {
     private val TAG = "VideoAdapter"
-    private var viewPager: BannerViewPager<VideoSuit>? = null
+    private var viewPager: BannerViewPager<PkVideoSuit>? = null
     public var onVideoSuitClickListener: OnVideoSuitClickListener? = null
 
     class VideoHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -29,7 +29,7 @@ class VideoSuitAdapter(private var appCtx: AppContext,
     }
 
     interface OnVideoSuitClickListener {
-        fun onVideoSuitClicked(vs: VideoSuit)
+        fun onVideoSuitClicked(vs: PkVideoSuit)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VideoHolder {
@@ -38,7 +38,7 @@ class VideoSuitAdapter(private var appCtx: AppContext,
             // banner
             view = View.inflate(parent.context, R.layout.layout_banner, null)
 
-            val bannerViewPager = view.findViewById<BannerViewPager<VideoSuit>>(R.id.banner_view)!!
+            val bannerViewPager = view.findViewById<BannerViewPager<PkVideoSuit>>(R.id.banner_view)!!
             val density = Resources.getSystem().displayMetrics.density
             viewPager = bannerViewPager
             //mViewPager.setPageStyle(PageStyle.MULTI_PAGE_SCALE)

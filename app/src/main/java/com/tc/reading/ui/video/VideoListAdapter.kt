@@ -1,7 +1,5 @@
 package com.tc.reading.ui.video
 
-import android.text.TextUtils
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -10,10 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.tc.reading.AppContext
 import com.tc.reading.R
-import com.tc.reading.entity.Video
+import com.tc.reading.entity.PkVideo
 
 class VideoListAdapter(private var appCtx: AppContext,
-                       private var videos: MutableList<Video>)
+                       private var videos: MutableList<PkVideo>)
     : RecyclerView.Adapter<VideoListAdapter.VideoHolder>() {
 
     private val TAG = "VideoAdapter"
@@ -24,7 +22,7 @@ class VideoListAdapter(private var appCtx: AppContext,
     }
 
     interface OnVideoClickListener {
-        fun onVideoClicked(video: Video)
+        fun onVideoClicked(video: PkVideo)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VideoHolder {

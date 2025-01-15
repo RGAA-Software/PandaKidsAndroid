@@ -1,26 +1,22 @@
 package com.tc.reading.entity
 
-class Video {
+class PkVideo : PkEntity() {
 
-    var name: String = ""
-    var file: String = ""
-    var summary: String = ""
+    var videoSuitId: String = ""
 
     override fun toString(): String {
-        return "Video(name='$name', file='$file', summary='$summary')"
+        return "Video(id = '$id' videoSuitId = '$videoSuitId' name='$name', file='$file', summary='$summary')"
     }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
-
-        other as Video
-
-        return file == other.file
+        other as PkVideo
+        return id == other.id
     }
 
     override fun hashCode(): Int {
-        return file.hashCode()
+        return id.hashCode()
     }
 
 }
