@@ -13,8 +13,14 @@
         android:orientation="horizontal"
         android:layout_above="@id/video_list">
 
-        <androidx.media3.ui.PlayerView
-            android:id="@+id/video_view"
+<!--        <androidx.media3.ui.PlayerView-->
+<!--            android:id="@+id/video_view"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_weight="15"-->
+<!--            android:layout_height="match_parent" />-->
+
+        <com.tc.reading.ui.video.subtitle.GSYExoSubTitleVideoView
+            android:id="@+id/detail_player"
             android:layout_width="0dp"
             android:layout_weight="15"
             android:layout_height="match_parent" />
@@ -23,14 +29,11 @@
             android:id="@+id/id_video_desc"
             android:layout_width="0dp"
             android:layout_weight="8"
-            android:layout_height="match_parent"
-            android:background="#9090ff">
-
+            android:layout_height="match_parent">
             <View
-                android:layout_width="450dp"
+                android:layout_width="400dp"
                 android:layout_height="match_parent"
                 android:background="#90fdff"/>
-
         </RelativeLayout>
 
     </LinearLayout>
@@ -38,7 +41,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/video_list"
         android:layout_width="match_parent"
-        android:layout_height="230dp"
+        android:layout_height="210dp"
         android:background="#ffffff"
         android:scrollbars="horizontal"
         android:layout_alignParentBottom="true"/>

@@ -11,7 +11,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/id_content"
         android:layout_width="220dp"
-        android:layout_height="170dp"
+        android:layout_height="150dp"
         android:layout_margin="8dp"
         app:cardCornerRadius="10dp"
         app:cardElevation="5dp">
@@ -30,7 +30,7 @@
         android:textColor="@color/textDark"
         android:layout_below="@id/id_content"
         android:lines="2"
-        android:layout_marginTop="3dp"
+        android:layout_marginTop="1dp"
         android:textSize="14sp"
         android:textStyle="bold"
         android:layout_marginLeft="10dp"

@@ -57,15 +57,12 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:2.8.3")
     implementation("com.google.android.material:material:1.12.0")
 
-    //implementation ("com.github.afreakyelf:Pdf-Viewer:2.0.7")
-    //implementation(project(":pdfViewer"))
-//    implementation("com.github.GitHubZJY:AndroidPdfHelper:v1.0.0")
-//    implementation("com.github.barteksc:android-pdf-viewer:2.8.2")
+    implementation("com.github.CarGuo.GSYVideoPlayer:gsyvideoplayer:v10.0.0")
+    // implementation("com.github.CarGuo.GSYVideoPlayer:gsyvideoplayer-java:v10.0.0")
+    implementation("com.github.CarGuo.GSYVideoPlayer:gsyvideoplayer-exo2:v10.0.0")
+
     implementation("com.github.barteksc:android-pdf-viewer:3.2.0-beta.1")
     implementation(project(":basic"))
-    //implementation("com.github.CarGuo.GSYVideoPlayer:GSYVideoPlayer:v8.6.0-release-jitpack")
-//    implementation("com.github.CarGuo.GSYVideoPlayer:GSYVideoPlayer:v9.0.0-release-jitpack")
-//    implementation("com.etebarian:meow-bottom-navigation:1.2.0")
 
     // pull refresh
     implementation("com.github.SimformSolutionsPvtLtd:SSPullToRefresh:1.5.2")

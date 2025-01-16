@@ -19,8 +19,8 @@ class AppContext(private var context: Context) {
     private var execService: ExecutorService;
 
     init {
-//        baseServerUrl = "http://192.168.31.5:9988";
-        baseServerUrl = "http://192.168.1.127:9988";
+        baseServerUrl = "http://192.168.31.5:9988";
+//        baseServerUrl = "http://192.168.1.127:9988";
         handlerThread.start();
         handler = Handler(handlerThread.looper);
         videoResManager = VideoResManager(this);

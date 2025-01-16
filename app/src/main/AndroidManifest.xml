@@ -25,6 +25,7 @@
             android:exported="false" />
         <activity
             android:name=".ui.video.VideoListActivity"
+            android:screenOrientation="landscape"
             android:exported="false" />
         <activity
             android:name=".ui.book.BookListActivity"
