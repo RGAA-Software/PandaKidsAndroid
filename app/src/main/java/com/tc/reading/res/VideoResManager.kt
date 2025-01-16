@@ -66,6 +66,7 @@ class VideoResManager(private var appCtx: AppContext) {
                 suit.summary = itemObj.getString(Api.KEY_SUMMARY)
                 suit.content = itemObj.getString(Api.KEY_CONTENT)
                 suit.details = itemObj.getString(Api.KEY_DETAILS)
+                suit.series = itemObj.getString(Api.KEY_SERIES)
 
                 // categories
                 val catArray = itemObj.getJSONArray(Api.KEY_CATEGORIES)

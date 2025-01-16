@@ -27,7 +27,7 @@
             android:name=".ui.video.VideoListActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.book.BookContentActivity"
+            android:name=".ui.book.BookListActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

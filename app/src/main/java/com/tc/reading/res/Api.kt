@@ -13,11 +13,19 @@ class Api {
         // videos
         val API_VIDEO_QUERY = "/pandakids/video/query"
 
+        // book suit
+        val API_BOOKSUIT_QUERY = "/pandakids/booksuit/query"
+        val API_BOOKSUIT_QUERY_LIKE_NAME = "/pandakids/booksuit/query/like/name"
+
+        // book
+        val API_BOOK_QUERY = "/pandakids/book/query"
+
         // const variables
         const val KEY_CODE = "Code"
         const val KEY_DATA = "Data"
         const val KEY_ID = "Id"
         const val KEY_NAME = "Name"
+        const val KEY_AUTHOR = "Author"
         const val KEY_FILE = "File"
         const val KEY_COVER = "Cover"
         const val KEY_COVER_ID = "CoverId"
@@ -31,6 +39,10 @@ class Api {
         const val KEY_DETAILS = "Details"
         const val KEY_CATEGORIES = "Categories"
         const val KEY_GRADES = "Grades"
+        const val KEY_BOOKSUITS = "BookSuits"
+        const val KEY_BOOKSUIT_PATH = "BookSuitPath"
+        const val KEY_SERIES = "Series"
+        const val KEY_BOOKS = "Books"
     }
 
 }
