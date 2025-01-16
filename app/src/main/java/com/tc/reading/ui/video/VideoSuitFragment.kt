@@ -21,12 +21,12 @@ import com.tc.reading.ui.BaseFragment
 
 class VideoSuitFragment() : BaseFragment() {
     private val TAG = "VideoFragment";
-    private lateinit var refreshLayout: SSPullToRefreshLayout
-    private lateinit var videoResManager: VideoResManager;
+    private var refreshLayout: SSPullToRefreshLayout? = null
+    private var videoResManager: VideoResManager? = null
     private var mainVideoSuits: MutableList<PkVideoSuit> = mutableListOf()
     private var recommendVideoSuit: MutableList<PkVideoSuit> = mutableListOf()
-    private lateinit var videoSuitAdapter: VideoSuitAdapter
-    private lateinit var appCtx: AppContext
+    private var videoSuitAdapter: VideoSuitAdapter? = null
+    private var appCtx: AppContext? = null
 
     @OptIn(UnstableApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,7 +43,7 @@ class VideoSuitFragment() : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         refreshLayout = view.findViewById(R.id.refresh_layout)
-        refreshLayout.apply {
+        refreshLayout?.apply {
             setRepeatMode(SSPullToRefreshLayout.RepeatMode.REPEAT);
             setRepeatCount(SSPullToRefreshLayout.RepeatCount.INFINITE);
             setRefreshStyle(SSPullToRefreshLayout.RefreshStyle.NORMAL);
@@ -65,9 +65,12 @@ class VideoSuitFragment() : BaseFragment() {
             }
         }
 
-        videoSuitAdapter = VideoSuitAdapter(appCtx, mainVideoSuits, recommendVideoSuit)
+        if (appCtx == null) {
+            return
+        }
+        videoSuitAdapter = VideoSuitAdapter(appCtx!!, mainVideoSuits, recommendVideoSuit)
         videoList.adapter = videoSuitAdapter
-        videoSuitAdapter.onVideoSuitClickListener = object: VideoSuitAdapter.OnVideoSuitClickListener {
+        videoSuitAdapter?.onVideoSuitClickListener = object: VideoSuitAdapter.OnVideoSuitClickListener {
             override fun onVideoSuitClicked(vs: PkVideoSuit) {
                 Log.i(TAG, "==> $vs")
                 val intent = Intent(requireActivity(), VideoListActivity::class.java)
@@ -76,7 +79,7 @@ class VideoSuitFragment() : BaseFragment() {
             }
         }
 
-        requestRecommendSuits()
+        //requestRecommendSuits()
         requestVideoSuits()
     }
 
@@ -86,18 +89,18 @@ class VideoSuitFragment() : BaseFragment() {
 
     override fun onResume() {
         super.onResume()
-        videoSuitAdapter.onResume()
+        videoSuitAdapter?.onResume()
 
     }
 
     override fun onPause() {
         super.onPause()
-        videoSuitAdapter.onPause()
+        videoSuitAdapter?.onPause()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        videoSuitAdapter.onDestroy()
+        videoSuitAdapter?.onDestroy()
     }
 
     override fun onDestroyView() {
@@ -105,7 +108,7 @@ class VideoSuitFragment() : BaseFragment() {
     }
 
     private fun requestRecommendSuits() {
-        videoResManager.getTodayVideoSuits { vs ->
+        videoResManager?.getTodayVideoSuits { vs ->
             if (vs == null || vs.size <= 0) {
                 return@getTodayVideoSuits;
             }
@@ -115,13 +118,13 @@ class VideoSuitFragment() : BaseFragment() {
             recommendVideoSuit.removeAll(vs)
             recommendVideoSuit.addAll(vs)
             appContext.postUITask {
-                videoSuitAdapter.refreshBanner()
+                videoSuitAdapter?.refreshBanner()
             }
         }
     }
 
     private fun requestVideoSuits() {
-        videoResManager.queryVideoSuits(1, 20) { vs ->
+        videoResManager?.queryVideoSuits(1, 20) { vs ->
             if (vs == null || vs.size <= 0) {
                 return@queryVideoSuits;
             }
@@ -131,7 +134,7 @@ class VideoSuitFragment() : BaseFragment() {
             mainVideoSuits.removeAll(vs)
             mainVideoSuits.addAll(vs)
             appContext.postUITask {
-                videoSuitAdapter.notifyDataSetChanged()
+                videoSuitAdapter?.notifyDataSetChanged()
             }
         }
     }
