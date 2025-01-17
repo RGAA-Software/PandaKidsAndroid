@@ -62,7 +62,6 @@ public class GSYExoSubTitleVideoManager extends GSYVideoBaseManager {
         sendMessage(msg);
     }
 
-
     /**
      * 上一集
      */

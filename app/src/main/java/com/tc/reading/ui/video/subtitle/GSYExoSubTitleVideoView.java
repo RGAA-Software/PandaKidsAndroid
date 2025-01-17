@@ -46,17 +46,14 @@ public class GSYExoSubTitleVideoView extends NormalGSYVideoPlayer implements Pla
     protected void init(Context context) {
         super.init(context);
         mSubtitleView = findViewById(R.id.sub_title_view);
-
-
-        mSubtitleView.setStyle(new CaptionStyleCompat(Color.GREEN, Color.TRANSPARENT, Color.TRANSPARENT, CaptionStyleCompat.EDGE_TYPE_NONE, CaptionStyleCompat.EDGE_TYPE_NONE, null));
-        mSubtitleView.setFixedTextSize(TypedValue.COMPLEX_UNIT_DIP, 14);
+        mSubtitleView.setStyle(new CaptionStyleCompat(Color.WHITE, Color.TRANSPARENT, Color.TRANSPARENT, CaptionStyleCompat.EDGE_TYPE_OUTLINE, Color.BLUE, null));
+        mSubtitleView.setFixedTextSize(TypedValue.COMPLEX_UNIT_DIP, 16);
     }
 
     @Override
     public int getLayoutId() {
         return R.layout.video_layout_subtitle;
     }
-
 
     @Override
     protected void startPrepare() {
