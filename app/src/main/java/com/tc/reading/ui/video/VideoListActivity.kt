@@ -26,7 +26,6 @@ import com.tc.reading.ui.video.subtitle.GSYExoSubTitlePlayerManager
 import com.tc.reading.ui.video.subtitle.GSYExoSubTitleVideoView
 import com.tc.reading.util.ScreenUtil
 
-
 @UnstableApi
 class VideoListActivity : AppCompatActivity() {
 
@@ -36,7 +35,6 @@ class VideoListActivity : AppCompatActivity() {
     private lateinit var videoResManager: VideoResManager
     private lateinit var videoListAdapter: VideoListAdapter
     private var mainVideos = mutableListOf<PkVideo>()
-    //private lateinit var exoPlayer: ExoPlayer
     private lateinit var detailPlayer: GSYExoSubTitleVideoView
     private lateinit var orientationUtils: OrientationUtils
 
@@ -60,30 +58,16 @@ class VideoListActivity : AppCompatActivity() {
         videoListAdapter.onVideoClickListener = object: VideoListAdapter.OnVideoClickListener {
             override fun onVideoClicked(video: PkVideo) {
                 Log.i(TAG, "video ==> $video")
-//                if (exoPlayer.isPlaying) {
-//
-//                }
                 val url = appCtx.getBaseServerUrl() + "/" + video.file
-//                exoPlayer.setMediaItem(MediaItem.fromUri(url))
-
                 //TODO: to check srt exist or not ....
-                detailPlayer?.subTitle = appCtx.getBaseServerUrl() + "/Resources/Preset/08 The Wind in the Willows/001_The Wind in the Willows 1_It Is Spring!.srt"
-                //detailPlayer.subTitle = appCtx.getBaseServerUrl() + "/Resources/Preset/08 The Wind in the Willows/001_The Wind in the Willows 1_It Is Spring! - Copy.txt"
-                detailPlayer?.setUp(url, true, video.name)
-                detailPlayer?.startPlayLogic()
+                detailPlayer.subTitle = appCtx.getBaseServerUrl() + "/Resources/Preset/08 The Wind in the Willows/001_The Wind in the Willows 1_It Is Spring!.srt"
+                detailPlayer.setUp(url, true, video.name)
+                detailPlayer.startPlayLogic()
             }
         }
 
-//        val playerView: PlayerView = findViewById(R.id.video_view);
-//        exoPlayer = ExoPlayer.Builder(this).build()
-//        playerView.player = exoPlayer
-//        exoPlayer.prepare()
-//        exoPlayer.playWhenReady = true
-
         detailPlayer = findViewById(R.id.detail_player)
-        ///外部辅助的旋转，帮助全屏
         orientationUtils = OrientationUtils(this, detailPlayer);
-        //初始化不打开外部的旋转
         orientationUtils.setEnable(false);
 
         val gsyVideoOption = GSYVideoOptionBuilder();
@@ -110,7 +94,6 @@ class VideoListActivity : AppCompatActivity() {
                         (detailPlayer.getGSYVideoManager()?.player as GSYExoSubTitlePlayerManager).setSeekParameter(SeekParameters.NEXT_SYNC)
                         Debuger.printfError("***** setSeekParameter **** ")
                     }
-
                 }
             }).setLockClickListener { view, lock ->
                 orientationUtils.setEnable(!lock)
@@ -141,7 +124,6 @@ class VideoListActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-//        exoPlayer.pause()
         detailPlayer.onVideoPause()
     }
 
@@ -152,7 +134,6 @@ class VideoListActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-//        exoPlayer.release()
         detailPlayer.release()
     }
 }

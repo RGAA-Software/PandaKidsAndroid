@@ -3,6 +3,7 @@ package com.tc.reading
 import android.content.Context
 import android.os.Handler
 import android.os.HandlerThread
+import com.tc.reading.res.AudioResManager
 import com.tc.reading.res.BookResManager
 import com.tc.reading.res.VideoResManager
 import java.util.concurrent.ExecutorService
@@ -15,6 +16,7 @@ class AppContext(private var context: Context) {
     private var mainHandler = Handler(context.mainLooper);
     private var videoResManager: VideoResManager;
     private var bookResManager: BookResManager
+    private var audioResManager: AudioResManager
     private var baseServerUrl: String
     private var execService: ExecutorService;
 
@@ -25,6 +27,7 @@ class AppContext(private var context: Context) {
         handler = Handler(handlerThread.looper);
         videoResManager = VideoResManager(this);
         bookResManager = BookResManager(this)
+        audioResManager = AudioResManager(this)
         execService = Executors.newFixedThreadPool(4);
     }
 
@@ -58,6 +61,10 @@ class AppContext(private var context: Context) {
 
     fun getBookResManager(): BookResManager {
         return bookResManager
+    }
+
+    fun getAudioResManager(): AudioResManager {
+        return audioResManager
     }
 
     fun getColor(id: Int): Int {

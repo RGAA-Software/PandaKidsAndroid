@@ -20,6 +20,13 @@ class Api {
         // book
         val API_BOOK_QUERY = "/pandakids/book/query"
 
+        // audio suit
+        val API_AUDIOSUIT_QUERY = "/pandakids/audiosuit/query"
+
+        // audio
+        val API_AUDIO_QUERY = "/pandakids/audio/query"
+        val API_AUDIO_QUERY_LIKE_NAME = "/pandakids/audio/query/like/name"
+
         // const variables
         const val KEY_CODE = "Code"
         const val KEY_DATA = "Data"
@@ -43,6 +50,8 @@ class Api {
         const val KEY_BOOKSUIT_PATH = "BookSuitPath"
         const val KEY_SERIES = "Series"
         const val KEY_BOOKS = "Books"
+        const val KEY_AUDIOSUITS = "AudioSuits"
+        const val KEY_AUDIOS = "Audios"
     }
 
 }
