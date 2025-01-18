@@ -23,7 +23,7 @@ class AudioListAdapter(private var appCtx: AppContext,
     }
 
     interface OnAudioClickListener {
-        fun onAudioClicked(book: PkAudio)
+        fun onAudioClicked(audio: PkAudio)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VideoHolder {
