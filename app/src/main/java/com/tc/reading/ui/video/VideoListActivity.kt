@@ -1,6 +1,7 @@
 package com.tc.reading.ui.video;
 
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import android.view.View.OnClickListener
@@ -16,6 +17,7 @@ import com.shuyu.gsyvideoplayer.listener.GSYSampleCallBack
 import com.shuyu.gsyvideoplayer.listener.LockClickListener
 import com.shuyu.gsyvideoplayer.utils.Debuger
 import com.shuyu.gsyvideoplayer.utils.OrientationUtils
+import com.tc.android.basic.NetworkRequester
 import com.tc.reading.App
 import com.tc.reading.AppContext
 import com.tc.reading.R
@@ -59,10 +61,27 @@ class VideoListActivity : AppCompatActivity() {
             override fun onVideoClicked(video: PkVideo) {
                 Log.i(TAG, "video ==> $video")
                 val url = appCtx.getBaseServerUrl() + "/" + video.file
-                //TODO: to check srt exist or not ....
-                detailPlayer.subTitle = appCtx.getBaseServerUrl() + "/Resources/Preset/08 The Wind in the Willows/001_The Wind in the Willows 1_It Is Spring!.srt"
-                detailPlayer.setUp(url, true, video.name)
-                detailPlayer.startPlayLogic()
+                val funStartPlaying = {
+                    detailPlayer.setUp(url, true, video.name)
+                    detailPlayer.startPlayLogic()
+                }
+
+                if (!TextUtils.isEmpty(video.subtitlePath)) {
+                    val subtitleUrl = appCtx.getBaseServerUrl() + "/" + video.subtitlePath
+                    appCtx.postBgTask {
+                        if (NetworkRequester.checkRemoteFileExists(subtitleUrl)) {
+                            detailPlayer.subTitle = subtitleUrl
+                            Log.i(TAG, "subtitle exist: $subtitleUrl")
+                        }
+                        appCtx.postUITask {
+                            funStartPlaying()
+                        }
+                    }
+
+                } else {
+                    funStartPlaying()
+                }
+
             }
         }
 

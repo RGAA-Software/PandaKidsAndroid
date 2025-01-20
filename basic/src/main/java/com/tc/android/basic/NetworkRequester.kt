@@ -1,8 +1,6 @@
 package com.tc.android.basic
 
 import android.util.Log
-import okhttp3.Call
-import okhttp3.Callback
 import okhttp3.FormBody
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.OkHttpClient
@@ -88,21 +86,10 @@ class NetworkRequester {
                     formBodyBuilder.add(k, v)
                 }
             val formBody = formBodyBuilder.build()
-
             val request: Request = Request.Builder()
                 .url(url)
-//                .addHeader(
-//                    "User-Agent",
-//                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36"
-//                )
-//                .addHeader("Host", "XXXX.com")
                 .post(formBody)
                 .build()
-
-
-            //创建/Call
-            //val call: Call = okHttpClient.newCall(request)
-
             try {
                 val resp = okHttpClient.newCall(request).execute();
                 return resp.body?.string();
@@ -110,20 +97,25 @@ class NetworkRequester {
                 e.printStackTrace();
                 return null;
             }
+        }
 
-            //加入队列 异步操作
-//            call.enqueue(object : Callback {
-//                //请求错误回调方法
-//                override fun onFailure(call: Call, e: IOException) {
-//                    println("连接失败")
-//                }
-//
-//                override fun onResponse(call: Call, response: Response) {
-//                    if (response.code == 200) {
-//                        println(response.body!!.string())
-//                    }
-//                }
-//            })
+        fun checkRemoteFileExists(url: String): Boolean {
+            val client = OkHttpClient.Builder()
+                .connectTimeout(3, TimeUnit.SECONDS)
+                .readTimeout(5, TimeUnit.SECONDS)
+                .build()
+            val request: Request = Request.Builder()
+                .head()
+                .url(url)
+                .build()
+
+            try {
+                val response: Response = client.newCall(request).execute()
+                return response.isSuccessful
+            } catch (e: IOException) {
+                e.printStackTrace()
+                return false
+            }
         }
 
     }

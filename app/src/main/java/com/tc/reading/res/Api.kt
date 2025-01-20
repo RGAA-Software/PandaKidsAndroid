@@ -38,6 +38,7 @@ class Api {
         const val KEY_COVER_ID = "CoverId"
         const val KEY_VIDEOSUITS = "VideoSuits"
         const val KEY_VIDEOSUIT_ID = "VideoSuitId"
+        const val KEY_SUBTITLE_PATH = "SubtitlePath"
         const val KEY_PAGE = "Page"
         const val KEY_PAGE_SIZE = "PageSize"
         const val KEY_VIDEOS = "Videos"

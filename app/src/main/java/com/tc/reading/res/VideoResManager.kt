@@ -134,6 +134,7 @@ class VideoResManager(private var appCtx: AppContext) {
                 video.file = itemObj.getString(Api.KEY_FILE)
                 video.cover = itemObj.getString(Api.KEY_COVER)
                 video.videoSuitId = itemObj.getString(Api.KEY_VIDEOSUIT_ID)
+                video.subtitlePath = itemObj.getString(Api.KEY_SUBTITLE_PATH)
                 if (!TextUtils.isEmpty(video.file)) {
                     video.file = video.file.replace("\\", "/");
                 }
