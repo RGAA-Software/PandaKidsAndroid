@@ -81,7 +81,6 @@ class VideoListActivity : AppCompatActivity() {
                 } else {
                     funStartPlaying()
                 }
-
             }
         }
 
@@ -108,7 +107,6 @@ class VideoListActivity : AppCompatActivity() {
             .setVideoAllCallBack(object: GSYSampleCallBack() {
                 override fun onPrepared(url: String?, vararg objects: Any?) {
                     super.onPrepared(url, *objects)
-                    //设置 seek 的临近帧。
                     if (detailPlayer.getGSYVideoManager()?.player is GSYExoSubTitlePlayerManager) {
                         (detailPlayer.getGSYVideoManager()?.player as GSYExoSubTitlePlayerManager).setSeekParameter(SeekParameters.NEXT_SYNC)
                         Debuger.printfError("***** setSeekParameter **** ")
@@ -154,5 +152,13 @@ class VideoListActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         detailPlayer.release()
+    }
+
+    override fun onBackPressed() {
+        if (detailPlayer.isIfCurrentIsFullscreen) {
+            detailPlayer.onBackFullscreen()
+            return
+        }
+        super.onBackPressed()
     }
 }

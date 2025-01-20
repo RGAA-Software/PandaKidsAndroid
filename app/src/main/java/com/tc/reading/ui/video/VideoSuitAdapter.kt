@@ -9,6 +9,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.android.flexbox.AlignItems
+import com.google.android.flexbox.FlexDirection
+import com.google.android.flexbox.FlexboxLayoutManager
+import com.google.android.flexbox.JustifyContent
 import com.tc.reading.AppContext
 import com.tc.reading.R
 import com.tc.reading.entity.PkVideoSuit
@@ -22,7 +26,9 @@ class VideoSuitAdapter(private var appCtx: AppContext,
     : RecyclerView.Adapter<VideoSuitAdapter.VideoHolder>() {
     private val TAG = "VideoAdapter"
     private var viewPager: BannerViewPager<PkVideoSuit>? = null
-    public var onVideoSuitClickListener: OnVideoSuitClickListener? = null
+    var onVideoSuitClickListener: OnVideoSuitClickListener? = null
+    private var videoLabelAdapter: VideoLabelAdapter? = null
+    private var videoLabelView: View? = null
 
     class VideoHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -35,44 +41,29 @@ class VideoSuitAdapter(private var appCtx: AppContext,
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VideoHolder {
         val view: View
         if (viewType == 0) {
-            view = View.inflate(parent.context, R.layout.item_video_suit_filter, null)
-            // banner
-//            view = View.inflate(parent.context, R.layout.layout_banner, null)
-//
-//            val bannerViewPager = view.findViewById<BannerViewPager<PkVideoSuit>>(R.id.banner_view)!!
-//            val density = Resources.getSystem().displayMetrics.density
-//            viewPager = bannerViewPager
-//            //mViewPager.setPageStyle(PageStyle.MULTI_PAGE_SCALE)
-//            bannerViewPager.setPageStyle(PageStyle.MULTI_PAGE)
-//            bannerViewPager.setPageMargin(15)
-//            bannerViewPager.setIndicatorStyle(IndicatorStyle.ROUND_RECT)
-//            bannerViewPager.setIndicatorHeight((density * 7).toInt())
-//            bannerViewPager.setIndicatorSliderWidth((density * 20).toInt())
-//            bannerViewPager.setIndicatorSliderColor(appCtx.getColor(R.color.white), appCtx.getColor(com.rajat.pdfviewer.R.color.colorPrimary))
-//            val scWidth = Resources.getSystem().displayMetrics.widthPixels
-//            if (scWidth <= 1280) {
-//                bannerViewPager.setRevealWidth((density * 280).toInt())
-//            }
-//            else if (scWidth <= 1920) {
-//                bannerViewPager.setRevealWidth((density * 400).toInt())
-//            }
-//            else if (scWidth <= 2560) {
-//                bannerViewPager.setRevealWidth((density * 500).toInt())
-//            }
-//            else if (scWidth <= 3840) {
-//                bannerViewPager.setRevealWidth((density * 500).toInt())
-//            }
-//            bannerViewPager.setInterval(5000)
-//            bannerViewPager.apply {
-//                adapter = VideoBannerAdapter(appCtx)
-//                //setLifecycleRegistry(lifecycle)
-//            }.create()
-//
-//            bannerViewPager.addData(recommendVideoSuit);
+            if (videoLabelView == null) {
+                view = View.inflate(parent.context, R.layout.item_video_suit_filter, null)
+                videoLabelView = view
+                val labelsView = view.findViewById<RecyclerView>(R.id.id_labels)
+                val mockData = mutableListOf<VideoLabel>()
+                for (i in 0..20) {
+                    mockData.add(VideoLabel())
+                }
+                videoLabelAdapter = VideoLabelAdapter(appCtx, mockData)
+                labelsView.adapter = videoLabelAdapter
+                var flexMgr = FlexboxLayoutManager(view.context, FlexDirection.ROW)
+                flexMgr.justifyContent = JustifyContent.FLEX_START
+                flexMgr.alignItems = AlignItems.CENTER
+                labelsView.layoutManager = flexMgr
+                videoLabelAdapter!!.notifyDataSetChanged()
+            } else {
+                view = videoLabelView!!
+            }
+
         } else {
             view = View.inflate(parent.context, R.layout.item_video_suits, null)
         }
-        return VideoHolder(view);
+        return VideoHolder(view)
     }
 
     fun refreshBanner() {

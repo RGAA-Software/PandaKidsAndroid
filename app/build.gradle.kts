@@ -56,9 +56,8 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:2.8.3")
     implementation("androidx.navigation:navigation-ui-ktx:2.8.3")
     implementation("com.google.android.material:material:1.12.0")
-
+    implementation("com.google.android:flexbox:2.0.1")
     implementation("com.github.CarGuo.GSYVideoPlayer:gsyvideoplayer:v10.0.0")
-    // implementation("com.github.CarGuo.GSYVideoPlayer:gsyvideoplayer-java:v10.0.0")
     implementation("com.github.CarGuo.GSYVideoPlayer:gsyvideoplayer-exo2:v10.0.0")
 
     implementation("com.github.barteksc:android-pdf-viewer:3.2.0-beta.1")
