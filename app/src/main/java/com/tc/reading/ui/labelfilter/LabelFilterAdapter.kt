@@ -2,6 +2,7 @@ package com.tc.reading.ui.labelfilter
 
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.tc.reading.AppContext
 import com.tc.reading.R
@@ -23,6 +24,11 @@ class LabelFilterAdapter(private var appCtx: AppContext,
     }
 
     override fun onBindViewHolder(holder: VideoHolder, position: Int) {
-
+        val item = labelFilters[position]
+        val labelView = holder.itemView.findViewById<TextView>(R.id.id_video_label)
+        labelView.setOnClickListener {
+            
+        }
+        labelView.text = item.name
     }
 }

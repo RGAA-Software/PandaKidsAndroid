@@ -128,7 +128,7 @@ class CartoonSuitFragment() : BaseFragment() {
             mainVideoSuits.removeAll(vs)
             mainVideoSuits.addAll(vs)
             appContext.postUITask {
-                cartoonSuitAdapter?.notifyDataSetChanged()
+                cartoonSuitAdapter?.myNotifyDataSetChanged()
             }
         }
     }

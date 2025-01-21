@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
+    <TextView
         android:id="@+id/id_video_label"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
@@ -13,6 +13,7 @@
         android:layout_marginTop="10dp"
         android:text="TEST"
         android:gravity="center"
-        android:background="@drawable/label_bg_shape"/>
+        android:textColor="@color/filter_color"
+        android:background="@drawable/bg_filter_item"/>
 
 </RelativeLayout>

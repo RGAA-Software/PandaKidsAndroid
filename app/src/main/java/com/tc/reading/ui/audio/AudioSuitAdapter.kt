@@ -22,6 +22,7 @@ class AudioSuitAdapter(private var appCtx: AppContext,
 
     private var labelFilterAdapter: LabelFilterAdapter? = null
     private var labelFilterView: View? = null
+    private val audioCategories = mutableListOf<LabelFilterItem>()
 
     interface OnItemClickListener {
         fun onItemClicked(audioSuit: PkAudioSuit)
@@ -40,11 +41,7 @@ class AudioSuitAdapter(private var appCtx: AppContext,
                 view = View.inflate(parent.context, R.layout.item_suit_label_filter, null)
                 labelFilterView = view
                 val labelsView = view.findViewById<RecyclerView>(R.id.id_labels)
-                val mockData = mutableListOf<LabelFilterItem>()
-                for (i in 0..20) {
-                    mockData.add(LabelFilterItem())
-                }
-                labelFilterAdapter = LabelFilterAdapter(appCtx, mockData)
+                labelFilterAdapter = LabelFilterAdapter(appCtx, audioCategories)
                 labelsView.adapter = labelFilterAdapter
                 var flexMgr = FlexboxLayoutManager(view.context, FlexDirection.ROW)
                 flexMgr.justifyContent = JustifyContent.FLEX_START

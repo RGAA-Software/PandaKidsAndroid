@@ -72,7 +72,9 @@ class VideoResManager(private var appCtx: AppContext) {
                 val catArray = itemObj.getJSONArray(Api.KEY_CATEGORIES)
                 for (catIdx in 0 until catArray.length()) {
                     val catItem = catArray.getString(catIdx)
-                    suit.categories.add(catItem)
+                    if (!TextUtils.isEmpty(catItem)) {
+                        suit.categories.add(catItem)
+                    }
                 }
 
                 // grades

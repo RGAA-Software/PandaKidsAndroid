@@ -38,13 +38,14 @@ class BookAdapter(private var appCtx: AppContext,
     private var labelFilterAdapter: LabelFilterAdapter? = null
     private var labelFilterView: View? = null
     private var labelListView: RecyclerView? = null
+    private var bookCategories = mutableListOf<LabelFilterItem>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookViewHolder {
         var view: View
         if (viewType == 0) {
             if (labelFilterView == null) {
                 view = View.inflate(parent.context, R.layout.item_suit_label_filter, null)
-                view.findViewById<Button>(R.id.id_expand_labels).setOnClickListener {
+                view.findViewById<ImageView>(R.id.id_expand_labels).setOnClickListener {
                     if (labelListView!!.visibility == View.VISIBLE) {
                         labelListView!!.visibility = View.GONE
                     } else {
@@ -54,11 +55,7 @@ class BookAdapter(private var appCtx: AppContext,
 
                 labelFilterView = view
                 labelListView = view.findViewById<RecyclerView>(R.id.id_labels)
-                val mockData = mutableListOf<LabelFilterItem>()
-                for (i in 0..20) {
-                    mockData.add(LabelFilterItem())
-                }
-                labelFilterAdapter = LabelFilterAdapter(appCtx, mockData)
+                labelFilterAdapter = LabelFilterAdapter(appCtx, bookCategories)
                 labelListView!!.adapter = labelFilterAdapter
                 var flexMgr = FlexboxLayoutManager(view.context, FlexDirection.ROW)
                 flexMgr.justifyContent = JustifyContent.FLEX_START

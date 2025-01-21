@@ -24,7 +24,8 @@ class ScienceSuitAdapter(private var appCtx: AppContext,
     private val TAG = "DocumentarySuit"
     var onMovieSuitClickListener: OnMovieSuitClickListener? = null
     private var labelFilterAdapter: LabelFilterAdapter? = null
-    private var labeFilterlView: View? = null
+    private var labelFilterView: View? = null
+    private val scienceCategories = mutableListOf<LabelFilterItem>()
 
     class VideoHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -37,15 +38,11 @@ class ScienceSuitAdapter(private var appCtx: AppContext,
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VideoHolder {
         val view: View
         if (viewType == 0) {
-            if (labeFilterlView == null) {
+            if (labelFilterView == null) {
                 view = View.inflate(parent.context, R.layout.item_suit_label_filter, null)
-                labeFilterlView = view
+                labelFilterView = view
                 val labelsView = view.findViewById<RecyclerView>(R.id.id_labels)
-                val mockData = mutableListOf<LabelFilterItem>()
-                for (i in 0..20) {
-                    mockData.add(LabelFilterItem())
-                }
-                labelFilterAdapter = LabelFilterAdapter(appCtx, mockData)
+                labelFilterAdapter = LabelFilterAdapter(appCtx, scienceCategories)
                 labelsView.adapter = labelFilterAdapter
                 var flexMgr = FlexboxLayoutManager(view.context, FlexDirection.ROW)
                 flexMgr.justifyContent = JustifyContent.FLEX_START
@@ -53,7 +50,7 @@ class ScienceSuitAdapter(private var appCtx: AppContext,
                 labelsView.layoutManager = flexMgr
                 labelFilterAdapter!!.notifyDataSetChanged()
             } else {
-                view = labeFilterlView!!
+                view = labelFilterView!!
             }
 
         } else {

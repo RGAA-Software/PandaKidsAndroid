@@ -4,7 +4,6 @@ import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -21,7 +20,7 @@ import com.tc.reading.ui.labelfilter.LabelFilterAdapter
 import com.zhpan.bannerview.BannerViewPager
 
 class CartoonSuitAdapter(private var appCtx: AppContext,
-                         private var mainVideoSuits: MutableList<PkVideoSuit>,
+                         private var cartoonSuits: MutableList<PkVideoSuit>,
                          private var recommendVideoSuit: MutableList<PkVideoSuit>)
     : RecyclerView.Adapter<CartoonSuitAdapter.VideoHolder>() {
     private val TAG = "VideoAdapter"
@@ -30,6 +29,7 @@ class CartoonSuitAdapter(private var appCtx: AppContext,
     private var labelFilterAdapter: LabelFilterAdapter? = null
     private var labelFilterView: View? = null
     private var labelListView: RecyclerView? = null
+    private var cartoonCategories: MutableList<LabelFilterItem> = mutableListOf()
 
     class VideoHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -44,21 +44,22 @@ class CartoonSuitAdapter(private var appCtx: AppContext,
         if (viewType == 0) {
             if (labelFilterView == null) {
                 view = View.inflate(parent.context, R.layout.item_suit_label_filter, null)
-                view.findViewById<Button>(R.id.id_expand_labels).setOnClickListener {
+                val expandLabelView = view.findViewById<ImageView>(R.id.id_expand_labels)
+                expandLabelView.setImageResource(R.drawable.ic_arrow_up)
+                expandLabelView.setOnClickListener {
+                    labelFilterAdapter!!.notifyDataSetChanged()
                     if (labelListView!!.visibility == View.VISIBLE) {
                         labelListView!!.visibility = View.GONE
+                        expandLabelView.setImageResource(R.drawable.ic_arrow_up)
                     } else {
                         labelListView!!.visibility = View.VISIBLE
+                        expandLabelView.setImageResource(R.drawable.ic_arrow_down)
                     }
                 }
 
                 labelFilterView = view
                 labelListView = view.findViewById<RecyclerView>(R.id.id_labels)
-                val mockData = mutableListOf<LabelFilterItem>()
-                for (i in 0..20) {
-                    mockData.add(LabelFilterItem())
-                }
-                labelFilterAdapter = LabelFilterAdapter(appCtx, mockData)
+                labelFilterAdapter = LabelFilterAdapter(appCtx, cartoonCategories)
                 labelListView!!.adapter = labelFilterAdapter
                 var flexMgr = FlexboxLayoutManager(view.context, FlexDirection.ROW)
                 flexMgr.justifyContent = JustifyContent.FLEX_START
@@ -80,7 +81,7 @@ class CartoonSuitAdapter(private var appCtx: AppContext,
     }
 
     override fun getItemCount(): Int {
-        return mainVideoSuits.size + 1;
+        return cartoonSuits.size + 1;
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -98,12 +99,12 @@ class CartoonSuitAdapter(private var appCtx: AppContext,
         // click
         holder.itemView.setOnClickListener {
             if (onCartoonSuitClickListener != null) {
-                val vs = mainVideoSuits[position - 1]
+                val vs = cartoonSuits[position - 1]
                 onCartoonSuitClickListener!!.onVideoSuitClicked(vs)
             }
         }
 
-        val suit = mainVideoSuits.get(position - 1)
+        val suit = cartoonSuits.get(position - 1)
         val titleView = holder.itemView.findViewById<TextView>(R.id.id_title)
         titleView.text = suit.name
 
@@ -131,6 +132,21 @@ class CartoonSuitAdapter(private var appCtx: AppContext,
 
     fun onDestroy() {
         //mViewPager?.stopLoop();
+    }
+
+    fun myNotifyDataSetChanged() {
+        this.notifyDataSetChanged()
+        if (labelFilterAdapter != null) {
+            cartoonSuits.forEach { suit ->
+                suit.categories.forEach { item ->
+                    var filterItem = LabelFilterItem(item)
+                    if (!cartoonCategories.contains(filterItem)) {
+                        cartoonCategories.add(filterItem)
+                    }
+                }
+            }
+            labelFilterAdapter!!.notifyDataSetChanged()
+        }
     }
 
 }
