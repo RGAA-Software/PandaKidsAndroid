@@ -1,4 +1,4 @@
-package com.tc.reading.ui.video
+package com.tc.reading.ui.videolist
 
 import android.util.Log
 import android.view.View

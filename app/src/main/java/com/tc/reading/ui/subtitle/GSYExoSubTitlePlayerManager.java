@@ -1,4 +1,4 @@
-package com.tc.reading.ui.video.subtitle;
+package com.tc.reading.ui.subtitle;
 
 import android.content.Context;
 import android.media.AudioManager;

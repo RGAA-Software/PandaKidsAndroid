@@ -1,129 +1,28 @@
 package com.tc.reading
 
 import android.os.Bundle
-import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 //import com.shuyu.gsyvideoplayer.player.IjkPlayerManager
 //import com.shuyu.gsyvideoplayer.player.PlayerFactory
 //import com.shuyu.gsyvideoplayer.player.SystemPlayerManager
 import com.tc.reading.databinding.ActivityMainBinding
-import com.tc.reading.ui.SimpleFragmentPagerAdapter
-import com.tc.reading.ui.book.BookFragment
-import com.tc.reading.ui.day.DayFragment
-import com.tc.reading.ui.me.AboutMeFragment
-import com.tc.reading.ui.video.VideoSuitFragment
+import com.tc.reading.ui.TabsFragmentPagerAdapter
 import com.tc.reading.util.ScreenUtil
-//import tv.danmaku.ijk.media.exo2.Exo2PlayerManager
 
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    companion object {
-        private const val ID_BOOK = 1
-        private const val ID_MOVIE = 2
-        private const val ID_DAY = 3
-        private const val ID_ME = 4
-    }
-
-    private lateinit var bookFragment: BookFragment
-    private lateinit var videoSuitFragment: VideoSuitFragment
-    private lateinit var dayFragment: DayFragment
-    private lateinit var aboutMeFragment: AboutMeFragment
-    private var currentFragment: Fragment? = null
-
     private lateinit var appContext: AppContext;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        ScreenUtil.makeActivityFullScreen(this);
-
+        ScreenUtil.makeActivityFullScreen(this)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        appContext = (application as App).getAppContext();
-
-        bookFragment = BookFragment();
-        videoSuitFragment = VideoSuitFragment();
-        dayFragment = DayFragment();
-        aboutMeFragment = AboutMeFragment();
-
-        supportActionBar?.title = "Books";
-        val fragmentHost = binding.root.findViewById<RelativeLayout>(R.id.fragment_host);
-
-        binding.viewPager.adapter = SimpleFragmentPagerAdapter(supportFragmentManager);
+        appContext = (application as App).getAppContext()
+        binding.viewPager.adapter = TabsFragmentPagerAdapter(supportFragmentManager)
         binding.topBar.setupWithViewPager(binding.viewPager)
-
-//        binding.bottomBar.apply {
-//            add(MeowBottomNavigation.Model(ID_BOOK, R.drawable.ic_book))
-//            add(MeowBottomNavigation.Model(ID_MOVIE, R.drawable.ic_movie))
-//            add(MeowBottomNavigation.Model(ID_DAY, R.drawable.ic_sun))
-//            add(MeowBottomNavigation.Model(ID_ME, R.drawable.ic_account))
-//
-//            //setCount(ID_NOTIFICATION, "15")
-//
-//            setOnShowListener {
-//                when (it.id) {
-//                    ID_BOOK -> {
-//                        switchFragment(bookFragment);
-//                        setActionBarTitle("Books");
-//                    }
-//                    ID_MOVIE -> {
-//                        switchFragment(videoFragment);
-//                        setActionBarTitle("Videos");
-//                    }
-//                    ID_DAY -> {
-//                        switchFragment(dayFragment)
-//                        setActionBarTitle("Everyday");
-//                    }
-//                    ID_ME -> {
-//                        switchFragment(aboutMeFragment)
-//                        setActionBarTitle("About Me");
-//                    }
-//                }
-//            }
-//
-//            setOnClickMenuListener {
-//
-//            }
-//
-//            setOnReselectListener {
-//                Toast.makeText(context, "item ${it.id} is reselected.", Toast.LENGTH_LONG).show()
-//            }
-//
-//            show(ID_BOOK)
-//
-//        }
-
-        //switchFragment(bookFragment)
-    }
-
-    private fun switchFragment(to: Fragment) {
-        val transaction = supportFragmentManager.beginTransaction();
-        if (currentFragment == null) {
-            if (!to.isAdded) {
-                transaction.add(R.id.fragment_host, to).commit();
-            } else {
-                transaction.show(to).commit();
-            }
-            currentFragment = to;
-        } else {
-            if (currentFragment == to) {
-                if (!to.isAdded) {
-                    transaction.add(R.id.fragment_host, to).commit();
-                } else {
-                    transaction.show(to).commit();
-                }
-            } else {
-                if (!to.isAdded) {
-                    transaction.hide(currentFragment!!).add(R.id.fragment_host, to).commit();
-                } else {
-                    transaction.hide(currentFragment!!).show(to).commit();
-                }
-            }
-            currentFragment = to;
-        }
     }
 }

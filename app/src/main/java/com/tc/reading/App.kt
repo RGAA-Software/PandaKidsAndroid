@@ -3,11 +3,8 @@ package com.tc.reading
 import android.app.Application
 import androidx.annotation.OptIn
 import androidx.media3.common.util.UnstableApi
-import com.shuyu.gsyvideoplayer.player.IjkPlayerManager
 import com.shuyu.gsyvideoplayer.player.PlayerFactory
-import com.shuyu.gsyvideoplayer.player.SystemPlayerManager
-import com.tc.reading.ui.video.subtitle.GSYExoSubTitlePlayerManager
-import tv.danmaku.ijk.media.exo2.Exo2PlayerManager
+import com.tc.reading.ui.subtitle.GSYExoSubTitlePlayerManager
 
 
 class App : Application() {

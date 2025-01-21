@@ -34,12 +34,12 @@ class NetworkRequester {
         }
 
         fun httpGet(url: String): String? {
-            val client = OkHttpClient.Builder()
-                .connectTimeout(3, TimeUnit.SECONDS)
-                .readTimeout(5, TimeUnit.SECONDS)
-                .build();
-            val request = Request.Builder().url(url).build();
             try {
+                val client = OkHttpClient.Builder()
+                    .connectTimeout(3, TimeUnit.SECONDS)
+                    .readTimeout(5, TimeUnit.SECONDS)
+                    .build();
+                val request = Request.Builder().url(url).build();
                 val resp = client.newCall(request).execute();
                 return resp.body?.string();
             } catch (e: Exception) {
@@ -49,19 +49,18 @@ class NetworkRequester {
         }
 
         fun httpPostJson(url: String, args: Map<String, String>): String? {
-            val client = OkHttpClient()
-            val mediaType = "application/json;charset=utf-8".toMediaTypeOrNull()!!
-            val jsonBody = JSONObject()
-            args.forEach { (k, v) ->
-                jsonBody.put(k, v)
-            }
-            val requestBody: RequestBody = jsonBody.toString().toRequestBody(mediaType)
-            val request = Request.Builder()
-                .url(url)
-                .post(requestBody)
-                .build()
-
             try {
+                val client = OkHttpClient()
+                val mediaType = "application/json;charset=utf-8".toMediaTypeOrNull()!!
+                val jsonBody = JSONObject()
+                args.forEach { (k, v) ->
+                    jsonBody.put(k, v)
+                }
+                val requestBody: RequestBody = jsonBody.toString().toRequestBody(mediaType)
+                val request = Request.Builder()
+                    .url(url)
+                    .post(requestBody)
+                    .build()
                 val resp = client.newCall(request).execute()
                 if (resp.code != 200) {
                     return null;
@@ -75,22 +74,22 @@ class NetworkRequester {
         }
 
         fun httpPostForm(url: String, args: Map<String, String>): String? {
-            val okHttpClient: OkHttpClient = OkHttpClient.Builder()
-                .connectTimeout(10, TimeUnit.SECONDS)
-                .writeTimeout(10, TimeUnit.SECONDS)
-                .readTimeout(20, TimeUnit.SECONDS)
-                .build()
+            try {
+                val okHttpClient: OkHttpClient = OkHttpClient.Builder()
+                    .connectTimeout(10, TimeUnit.SECONDS)
+                    .writeTimeout(10, TimeUnit.SECONDS)
+                    .readTimeout(20, TimeUnit.SECONDS)
+                    .build()
 
-            val formBodyBuilder: FormBody.Builder = FormBody.Builder()
+                val formBodyBuilder: FormBody.Builder = FormBody.Builder()
                 args.forEach { (k, v)->
                     formBodyBuilder.add(k, v)
                 }
-            val formBody = formBodyBuilder.build()
-            val request: Request = Request.Builder()
-                .url(url)
-                .post(formBody)
-                .build()
-            try {
+                val formBody = formBodyBuilder.build()
+                val request: Request = Request.Builder()
+                    .url(url)
+                    .post(formBody)
+                    .build()
                 val resp = okHttpClient.newCall(request).execute();
                 return resp.body?.string();
             } catch (e: Exception) {
@@ -100,16 +99,15 @@ class NetworkRequester {
         }
 
         fun checkRemoteFileExists(url: String): Boolean {
-            val client = OkHttpClient.Builder()
-                .connectTimeout(3, TimeUnit.SECONDS)
-                .readTimeout(5, TimeUnit.SECONDS)
-                .build()
-            val request: Request = Request.Builder()
-                .head()
-                .url(url)
-                .build()
-
             try {
+                val client = OkHttpClient.Builder()
+                    .connectTimeout(3, TimeUnit.SECONDS)
+                    .readTimeout(5, TimeUnit.SECONDS)
+                    .build()
+                val request: Request = Request.Builder()
+                    .head()
+                    .url(url)
+                    .build()
                 val response: Response = client.newCall(request).execute()
                 return response.isSuccessful
             } catch (e: IOException) {

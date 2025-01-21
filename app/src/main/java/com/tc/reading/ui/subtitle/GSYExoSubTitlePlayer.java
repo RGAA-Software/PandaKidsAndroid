@@ -1,4 +1,4 @@
-package com.tc.reading.ui.video.subtitle;
+package com.tc.reading.ui.subtitle;
 
 import static androidx.media3.common.util.Assertions.checkNotNull;
 
@@ -8,7 +8,6 @@ import android.os.Handler;
 import android.os.Looper;
 
 
-import java.util.ArrayList;
 import java.util.List;
 
 import tv.danmaku.ijk.media.exo2.IjkExo2MediaPlayer;

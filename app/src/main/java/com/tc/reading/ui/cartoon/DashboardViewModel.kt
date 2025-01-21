@@ -1,4 +1,4 @@
-package com.tc.reading.ui.video
+package com.tc.reading.ui.cartoon
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

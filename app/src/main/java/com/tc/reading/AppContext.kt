@@ -3,6 +3,7 @@ package com.tc.reading
 import android.content.Context
 import android.os.Handler
 import android.os.HandlerThread
+import com.tc.android.basic.SPUtils
 import com.tc.reading.res.AudioResManager
 import com.tc.reading.res.BookResManager
 import com.tc.reading.res.VideoResManager
@@ -17,12 +18,12 @@ class AppContext(private var context: Context) {
     private var videoResManager: VideoResManager;
     private var bookResManager: BookResManager
     private var audioResManager: AudioResManager
-    private var baseServerUrl: String
-    private var execService: ExecutorService;
+
+    private var execService: ExecutorService
+    private var spUtil: SPUtils = SPUtils(context)
+    private var appSettings: AppSettings = AppSettings(this)
 
     init {
-        baseServerUrl = "http://192.168.31.5:9988";
-//        baseServerUrl = "http://192.168.1.127:9988";
         handlerThread.start();
         handler = Handler(handlerThread.looper);
         videoResManager = VideoResManager(this);
@@ -48,7 +49,7 @@ class AppContext(private var context: Context) {
     }
 
     fun getBaseServerUrl(): String {
-        return baseServerUrl;
+        return appSettings.getServerAddress()
     }
 
     fun postBgTask(task: Runnable) {
@@ -73,5 +74,13 @@ class AppContext(private var context: Context) {
 
     fun getContext(): Context {
         return context
+    }
+
+    fun getSpUtils(): SPUtils {
+        return spUtil
+    }
+
+    fun getAppSettings(): AppSettings {
+        return appSettings
     }
 }

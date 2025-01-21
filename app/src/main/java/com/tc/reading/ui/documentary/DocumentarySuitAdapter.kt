@@ -1,6 +1,5 @@
-package com.tc.reading.ui.video
+package com.tc.reading.ui.documentary
 
-import android.content.res.Resources
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
@@ -16,58 +15,51 @@ import com.google.android.flexbox.JustifyContent
 import com.tc.reading.AppContext
 import com.tc.reading.R
 import com.tc.reading.entity.PkVideoSuit
-import com.zhpan.bannerview.BannerViewPager
-import com.zhpan.bannerview.constants.PageStyle
-import com.zhpan.indicator.enums.IndicatorStyle
+import com.tc.reading.ui.labelfilter.LabelFilterItem
+import com.tc.reading.ui.labelfilter.LabelFilterAdapter
 
-class VideoSuitAdapter(private var appCtx: AppContext,
-                       private var mainVideoSuits: MutableList<PkVideoSuit>,
-                       private var recommendVideoSuit: MutableList<PkVideoSuit>)
-    : RecyclerView.Adapter<VideoSuitAdapter.VideoHolder>() {
-    private val TAG = "VideoAdapter"
-    private var viewPager: BannerViewPager<PkVideoSuit>? = null
-    var onVideoSuitClickListener: OnVideoSuitClickListener? = null
-    private var videoLabelAdapter: VideoLabelAdapter? = null
-    private var videoLabelView: View? = null
+class DocumentarySuitAdapter(private var appCtx: AppContext,
+                             private var mainVideoSuits: MutableList<PkVideoSuit>)
+    : RecyclerView.Adapter<DocumentarySuitAdapter.VideoHolder>() {
+    private val TAG = "DocumentarySuit"
+    var onDocumentarySuitClickListener: OnDocumentarySuitClickListener? = null
+    private var labelFilterAdapter: LabelFilterAdapter? = null
+    private var labeFilterlView: View? = null
 
     class VideoHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     }
 
-    interface OnVideoSuitClickListener {
+    interface OnDocumentarySuitClickListener {
         fun onVideoSuitClicked(vs: PkVideoSuit)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VideoHolder {
         val view: View
         if (viewType == 0) {
-            if (videoLabelView == null) {
-                view = View.inflate(parent.context, R.layout.item_video_suit_filter, null)
-                videoLabelView = view
+            if (labeFilterlView == null) {
+                view = View.inflate(parent.context, R.layout.item_suit_label_filter, null)
+                labeFilterlView = view
                 val labelsView = view.findViewById<RecyclerView>(R.id.id_labels)
-                val mockData = mutableListOf<VideoLabel>()
+                val mockData = mutableListOf<LabelFilterItem>()
                 for (i in 0..20) {
-                    mockData.add(VideoLabel())
+                    mockData.add(LabelFilterItem())
                 }
-                videoLabelAdapter = VideoLabelAdapter(appCtx, mockData)
-                labelsView.adapter = videoLabelAdapter
+                labelFilterAdapter = LabelFilterAdapter(appCtx, mockData)
+                labelsView.adapter = labelFilterAdapter
                 var flexMgr = FlexboxLayoutManager(view.context, FlexDirection.ROW)
                 flexMgr.justifyContent = JustifyContent.FLEX_START
                 flexMgr.alignItems = AlignItems.CENTER
                 labelsView.layoutManager = flexMgr
-                videoLabelAdapter!!.notifyDataSetChanged()
+                labelFilterAdapter!!.notifyDataSetChanged()
             } else {
-                view = videoLabelView!!
+                view = labeFilterlView!!
             }
 
         } else {
             view = View.inflate(parent.context, R.layout.item_video_suits, null)
         }
         return VideoHolder(view)
-    }
-
-    fun refreshBanner() {
-        viewPager?.refreshData(recommendVideoSuit);
     }
 
     override fun getItemCount(): Int {
@@ -88,9 +80,9 @@ class VideoSuitAdapter(private var appCtx: AppContext,
 
         // click
         holder.itemView.setOnClickListener {
-            if (onVideoSuitClickListener != null) {
+            if (onDocumentarySuitClickListener != null) {
                 val vs = mainVideoSuits[position - 1]
-                onVideoSuitClickListener!!.onVideoSuitClicked(vs)
+                onDocumentarySuitClickListener!!.onVideoSuitClicked(vs)
             }
         }
 

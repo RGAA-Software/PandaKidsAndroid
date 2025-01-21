@@ -25,6 +25,19 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="0dp">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+            <Button
+                android:text="Self"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <Button
+                android:text="Settings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"/>
+        </LinearLayout>
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/top_bar"
             android:layout_width="wrap_content"
@@ -32,13 +45,11 @@
             android:background="@color/white"
             app:tabMaxWidth="130dp"
             app:tabMinWidth="130dp"
-            app:tabMode="fixed"
+            app:tabMode="scrollable"
             app:tabSelectedTextColor="@color/colorPrimary"
             app:tabTextAppearance="@style/TopBar"
             app:tabIndicator="@drawable/top_bar_indicator"
             app:tabTextColor="#333333" >
-
         </com.google.android.material.tabs.TabLayout>
-
     </LinearLayout>
 </RelativeLayout>

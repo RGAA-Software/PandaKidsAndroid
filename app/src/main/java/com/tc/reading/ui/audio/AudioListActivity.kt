@@ -1,7 +1,6 @@
 package com.tc.reading.ui.audio
 
 import android.media.MediaPlayer
-import android.media.MediaPlayer.OnCompletionListener
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
@@ -16,7 +15,7 @@ import com.tc.reading.R
 import com.tc.reading.entity.PkAudio
 import com.tc.reading.entity.PkAudioSuit
 import com.tc.reading.res.AudioResManager
-import com.tc.reading.ui.video.VideoListItemDecoration
+import com.tc.reading.ui.videolist.VideoListItemDecoration
 import com.tc.reading.util.ScreenUtil
 import java.util.Timer
 import java.util.TimerTask

@@ -1,20 +1,16 @@
-package com.tc.reading.ui.video;
+package com.tc.reading.ui.videolist;
 
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
-import android.view.View
-import android.view.View.OnClickListener
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.media3.common.C
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.SeekParameters
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.shuyu.gsyvideoplayer.builder.GSYVideoOptionBuilder
 import com.shuyu.gsyvideoplayer.listener.GSYSampleCallBack
-import com.shuyu.gsyvideoplayer.listener.LockClickListener
 import com.shuyu.gsyvideoplayer.utils.Debuger
 import com.shuyu.gsyvideoplayer.utils.OrientationUtils
 import com.tc.android.basic.NetworkRequester
@@ -24,8 +20,8 @@ import com.tc.reading.R
 import com.tc.reading.entity.PkVideo
 import com.tc.reading.entity.PkVideoSuit
 import com.tc.reading.res.VideoResManager
-import com.tc.reading.ui.video.subtitle.GSYExoSubTitlePlayerManager
-import com.tc.reading.ui.video.subtitle.GSYExoSubTitleVideoView
+import com.tc.reading.ui.subtitle.GSYExoSubTitlePlayerManager
+import com.tc.reading.ui.subtitle.GSYExoSubTitleVideoView
 import com.tc.reading.util.ScreenUtil
 
 @UnstableApi

@@ -10,10 +10,16 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.google.android.flexbox.AlignItems
+import com.google.android.flexbox.FlexDirection
+import com.google.android.flexbox.FlexboxLayoutManager
+import com.google.android.flexbox.JustifyContent
 import com.tc.reading.AppContext
 import com.tc.reading.R
 import com.tc.reading.databinding.ItemBookBinding
 import com.tc.reading.entity.PkBookSuit
+import com.tc.reading.ui.labelfilter.LabelFilterAdapter
+import com.tc.reading.ui.labelfilter.LabelFilterItem
 
 class BookAdapter(private var appCtx: AppContext,
                   private var activity: Activity,
@@ -29,13 +35,42 @@ class BookAdapter(private var appCtx: AppContext,
     }
 
     var onItemClickListener: OnItemClickListener? = null
+    private var labelFilterAdapter: LabelFilterAdapter? = null
+    private var labelFilterView: View? = null
+    private var labelListView: RecyclerView? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookViewHolder {
+        var view: View
         if (viewType == 0) {
-            val view = View.inflate(activity, R.layout.item_book_filter, null);
+            if (labelFilterView == null) {
+                view = View.inflate(parent.context, R.layout.item_suit_label_filter, null)
+                view.findViewById<Button>(R.id.id_expand_labels).setOnClickListener {
+                    if (labelListView!!.visibility == View.VISIBLE) {
+                        labelListView!!.visibility = View.GONE
+                    } else {
+                        labelListView!!.visibility = View.VISIBLE
+                    }
+                }
+
+                labelFilterView = view
+                labelListView = view.findViewById<RecyclerView>(R.id.id_labels)
+                val mockData = mutableListOf<LabelFilterItem>()
+                for (i in 0..20) {
+                    mockData.add(LabelFilterItem())
+                }
+                labelFilterAdapter = LabelFilterAdapter(appCtx, mockData)
+                labelListView!!.adapter = labelFilterAdapter
+                var flexMgr = FlexboxLayoutManager(view.context, FlexDirection.ROW)
+                flexMgr.justifyContent = JustifyContent.FLEX_START
+                flexMgr.alignItems = AlignItems.CENTER
+                labelListView!!.layoutManager = flexMgr
+                labelFilterAdapter!!.notifyDataSetChanged()
+            } else {
+                view = labelFilterView!!
+            }
             return BookViewHolder(view);
         } else {
-            val view = View.inflate(activity, R.layout.item_book, null);
+            view = View.inflate(activity, R.layout.item_book, null);
             return BookViewHolder(view);
         }
     }

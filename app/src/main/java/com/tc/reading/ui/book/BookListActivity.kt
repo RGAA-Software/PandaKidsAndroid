@@ -12,7 +12,7 @@ import com.tc.reading.R
 import com.tc.reading.entity.PkBook
 import com.tc.reading.entity.PkBookSuit
 import com.tc.reading.res.BookResManager
-import com.tc.reading.ui.video.VideoListItemDecoration
+import com.tc.reading.ui.videolist.VideoListItemDecoration
 import com.tc.reading.util.ScreenUtil
 
 class BookListActivity : AppCompatActivity() {

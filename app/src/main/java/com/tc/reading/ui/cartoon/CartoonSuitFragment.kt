@@ -1,4 +1,4 @@
-package com.tc.reading.ui.video
+package com.tc.reading.ui.cartoon
 
 import android.content.Intent
 import android.os.Bundle
@@ -11,28 +11,25 @@ import androidx.media3.common.util.UnstableApi
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.simform.refresh.SSPullToRefreshLayout
-import com.tc.reading.App
-import com.tc.reading.AppContext
 import com.tc.reading.R
 import com.tc.reading.entity.PkVideoSuit
 import com.tc.reading.res.VideoResManager
 import com.tc.reading.ui.BaseFragment
+import com.tc.reading.ui.videolist.VideoListActivity
 
 
-class VideoSuitFragment() : BaseFragment() {
+class CartoonSuitFragment() : BaseFragment() {
     private val TAG = "VideoFragment";
     private var refreshLayout: SSPullToRefreshLayout? = null
     private var videoResManager: VideoResManager? = null
     private var mainVideoSuits: MutableList<PkVideoSuit> = mutableListOf()
     private var recommendVideoSuit: MutableList<PkVideoSuit> = mutableListOf()
-    private var videoSuitAdapter: VideoSuitAdapter? = null
-    private var appCtx: AppContext? = null
+    private var cartoonSuitAdapter: CartoonSuitAdapter? = null
 
     @OptIn(UnstableApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         videoResManager = appContext.getVideoResManager()
-        appCtx = (requireActivity().application as App).getAppContext()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -57,7 +54,7 @@ class VideoSuitFragment() : BaseFragment() {
 
         val videoList = view.findViewById<RecyclerView>(R.id.video_list)
         val layoutManager = GridLayoutManager(context, 4)
-        videoList.addItemDecoration(VideoSuitItemDecoration())
+        videoList.addItemDecoration(CartoonSuitItemDecoration())
         videoList.layoutManager = layoutManager
         layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
@@ -65,12 +62,9 @@ class VideoSuitFragment() : BaseFragment() {
             }
         }
 
-        if (appCtx == null) {
-            return
-        }
-        videoSuitAdapter = VideoSuitAdapter(appCtx!!, mainVideoSuits, recommendVideoSuit)
-        videoList.adapter = videoSuitAdapter
-        videoSuitAdapter?.onVideoSuitClickListener = object: VideoSuitAdapter.OnVideoSuitClickListener {
+        cartoonSuitAdapter = CartoonSuitAdapter(appContext, mainVideoSuits, recommendVideoSuit)
+        videoList.adapter = cartoonSuitAdapter
+        cartoonSuitAdapter?.onCartoonSuitClickListener = object: CartoonSuitAdapter.OnCartoonSuitClickListener {
             override fun onVideoSuitClicked(vs: PkVideoSuit) {
                 Log.i(TAG, "==> $vs")
                 val intent = Intent(requireActivity(), VideoListActivity::class.java)
@@ -89,18 +83,18 @@ class VideoSuitFragment() : BaseFragment() {
 
     override fun onResume() {
         super.onResume()
-        videoSuitAdapter?.onResume()
+        cartoonSuitAdapter?.onResume()
 
     }
 
     override fun onPause() {
         super.onPause()
-        videoSuitAdapter?.onPause()
+        cartoonSuitAdapter?.onPause()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        videoSuitAdapter?.onDestroy()
+        cartoonSuitAdapter?.onDestroy()
     }
 
     override fun onDestroyView() {
@@ -118,7 +112,7 @@ class VideoSuitFragment() : BaseFragment() {
             recommendVideoSuit.removeAll(vs)
             recommendVideoSuit.addAll(vs)
             appContext.postUITask {
-                videoSuitAdapter?.refreshBanner()
+                cartoonSuitAdapter?.refreshBanner()
             }
         }
     }
@@ -134,7 +128,7 @@ class VideoSuitFragment() : BaseFragment() {
             mainVideoSuits.removeAll(vs)
             mainVideoSuits.addAll(vs)
             appContext.postUITask {
-                videoSuitAdapter?.notifyDataSetChanged()
+                cartoonSuitAdapter?.notifyDataSetChanged()
             }
         }
     }

@@ -1,4 +1,4 @@
-package com.tc.reading.ui.video.subtitle;
+package com.tc.reading.ui.subtitle;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;

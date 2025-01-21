@@ -24,7 +24,7 @@
             android:name=".ui.book.PdfActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.video.VideoListActivity"
+            android:name=".ui.videolist.VideoListActivity"
             android:screenOrientation="landscape"
             android:exported="false" />
         <activity
