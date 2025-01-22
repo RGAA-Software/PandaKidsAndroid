@@ -18,21 +18,27 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Tc_reading"
         android:usesCleartextTraffic="true"
-
         tools:targetApi="31">
+        <activity
+            android:name=".ui.me.AboutMeActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.book.PdfActivity"
             android:exported="false" />
         <activity
             android:name=".ui.videolist.VideoListActivity"
-            android:screenOrientation="landscape"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="landscape" />
         <activity
             android:name=".ui.book.BookListActivity"
             android:exported="false" />
-        <activity android:name=".ui.audio.AudioListActivity"
-            android:screenOrientation="landscape"
-            android:exported="false"/>
+        <activity
+            android:name=".ui.audio.AudioListActivity"
+            android:exported="false"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.settings.SettingsActivity"
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

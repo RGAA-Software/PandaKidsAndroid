@@ -6,8 +6,6 @@ import androidx.fragment.app.FragmentPagerAdapter
 import com.tc.reading.ui.audio.AudioSuitFragment
 import com.tc.reading.ui.book.BookFragment
 import com.tc.reading.ui.movie.MovieFragment
-import com.tc.reading.ui.me.AboutMeFragment
-import com.tc.reading.ui.settings.SettingsFragment
 import com.tc.reading.ui.cartoon.CartoonSuitFragment
 import com.tc.reading.ui.documentary.DocumentaryFragment
 import com.tc.reading.ui.science.ScienceFragment
@@ -20,17 +18,13 @@ class TabsFragmentPagerAdapter(fm: FragmentManager) :
         "Movie",
         "Audio",
         "Science",
-        "Book",
-        "About Me",
-        "Settings")
+        "Book")
     private val fragment = arrayOf(CartoonSuitFragment(),
         DocumentaryFragment(),
         MovieFragment(),
         AudioSuitFragment(),
         ScienceFragment(),
-        BookFragment(),
-        AboutMeFragment(),
-        SettingsFragment())
+        BookFragment(),)
 
     override fun getItem(position: Int): Fragment {
         return fragment[position]

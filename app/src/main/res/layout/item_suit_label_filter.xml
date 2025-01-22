@@ -8,17 +8,29 @@
         android:id="@+id/id_labels"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight="30dp"/>
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="12dp"/>
 
     <ImageView
         android:id="@+id/id_expand_labels"
-        android:text="expand"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_alignParentRight="true"
         android:layout_marginTop="5dp"
         android:layout_marginRight="5dp"
-        android:src="@drawable/ic_arrow_up"
+        android:src="@drawable/ic_arrow_down"
         android:background="@drawable/bg_expand_filter"/>
+
+    <ImageView
+        android:id="@+id/id_clear_selected_labels"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="5dp"
+        android:padding="3dp"
+        android:layout_toLeftOf="@id/id_expand_labels"
+        android:src="@drawable/ic_close"
+        android:background="@drawable/bg_expand_filter"/>
+
 
 </RelativeLayout>

@@ -24,29 +24,39 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="0dp">
+        android:layout_marginTop="5dp">
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent">
-            <Button
-                android:text="Self"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <Button
-                android:text="Settings"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"/>
+            android:layout_height="match_parent"
+            android:gravity="center_vertical">
+            <ImageView
+                android:id="@+id/id_nav_settings"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginLeft="12dp"
+                android:padding="3dp"
+                android:src="@drawable/ic_settings"
+                android:background="@drawable/bg_expand_filter"/>
+            <ImageView
+                android:id="@+id/id_nav_self"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:padding="3dp"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/ic_account"
+                android:background="@drawable/bg_expand_filter"/>
         </LinearLayout>
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/top_bar"
             android:layout_width="wrap_content"
-            android:layout_height="45dp"
-            android:background="@color/white"
+            android:layout_height="@dimen/tab_height"
+            android:layout_marginLeft="10dp"
+            app:tabBackground="@drawable/bg_top_tab"
+            app:tabRippleColor="#00000000"
             app:tabMaxWidth="130dp"
             app:tabMinWidth="130dp"
             app:tabMode="scrollable"
-            app:tabSelectedTextColor="@color/colorPrimary"
+            app:tabSelectedTextColor="@color/white"
             app:tabTextAppearance="@style/TopBar"
             app:tabIndicator="@drawable/top_bar_indicator"
             app:tabTextColor="#333333" >

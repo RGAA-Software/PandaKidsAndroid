@@ -45,7 +45,6 @@ class CartoonSuitAdapter(private var appCtx: AppContext,
             if (labelFilterView == null) {
                 view = View.inflate(parent.context, R.layout.item_suit_label_filter, null)
                 val expandLabelView = view.findViewById<ImageView>(R.id.id_expand_labels)
-                expandLabelView.setImageResource(R.drawable.ic_arrow_up)
                 expandLabelView.setOnClickListener {
                     labelFilterAdapter!!.notifyDataSetChanged()
                     if (labelListView!!.visibility == View.VISIBLE) {
